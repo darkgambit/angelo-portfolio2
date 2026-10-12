@@ -4,120 +4,312 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Portfolio of Angelo De Ocampo, AI Automation Specialist and Operations Strategist specializing in secure, scalable business automation.">
-  <meta name="theme-color" content="#07111f">
+  <meta name="theme-color" content="#050b16">
   <meta property="og:title" content="Angelo De Ocampo | AI Automation Architect">
   <meta property="og:description" content="Secure, scalable automation built with an auditor's eye.">
   <meta property="og:image" content="assets/angelo-profile.webp">
   <title>Angelo De Ocampo | AI Automation Architect</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2356e3c1'/%3E%3Cstop offset='1' stop-color='%236ba8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='30' text-anchor='middle' fill='%23050b16'%3EA%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    /* Apply saved theme before paint to avoid a flash */
+    (function(){try{var t=localStorage.getItem('portfolio-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}document.documentElement.classList.add('js');})();
+  </script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Angelo De Ocampo","jobTitle":"AI Automation Specialist & Operations Strategist","url":"https://github.com/darkgambit","sameAs":["https://github.com/darkgambit"],"address":{"@type":"PostalAddress","addressRegion":"Bataan","addressCountry":"PH"}}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Intro loader -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-name"><span>Angelo</span><span>De&nbsp;Ocampo</span></div>
+      <div class="loader-meta"><span class="loader-label">Initializing workflows</span><span class="loader-count">0</span></div>
+      <div class="loader-bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- Ambient layers -->
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-ring" aria-hidden="true"><span class="cursor-label">View</span></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
   <header class="site-header" id="top">
     <nav class="nav container" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="Angelo De Ocampo home"><span class="brand-name">Angelo</span></a>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+      <a class="brand" href="#top" aria-label="Angelo De Ocampo home">
+        <span class="brand-mark">A</span><span class="brand-name">Angelo<b>.</b></span>
+      </a>
       <div class="nav-links" id="nav-links">
+        <span class="nav-indicator" aria-hidden="true"></span>
         <a href="#about">About</a><a href="#skills">Expertise</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
       </div>
-      <button class="theme-toggle" aria-label="Switch color theme" title="Switch color theme"><span class="theme-icon">☼</span></button>
+      <div class="nav-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 1 1 9.4 3.5a7 7 0 0 0 11.1 11.1Z"/></svg>
+        </button>
+        <a class="nav-cta" href="#contact" data-magnetic>Let’s talk <span aria-hidden="true">→</span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span></button>
+      </div>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero section">
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-label="Introduction">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="hero-grid-lines" aria-hidden="true"></div>
+
       <div class="hero-grid container">
-        <div class="hero-copy reveal">
-          <div class="eyebrow"><span class="status-dot"></span> Available for automation projects</div>
-          <h1>Smart automation, grounded in <span>business insight.</span></h1>
-          <p class="hero-sub">I’m <strong>Angelo De Ocampo</strong>, an AI Automation Specialist building practical systems that connect business processes, data, and intelligent automation.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">Explore my work <span>↗</span></a>
-            <a class="btn btn-ghost" href="#contact">Start a conversation</a><a class="btn btn-ghost btn-cv" href="Angelo-De-Ocampo-CV.pdf" download="Angelo-De-Ocampo-CV.pdf">Download CV <span>↓</span></a>
+        <div class="hero-copy">
+          <div class="eyebrow intro-item" style="--d:0"><span class="status-dot"></span> Available for automation projects</div>
+          <h1 aria-label="Smart automation, grounded in business insight.">
+            <span class="h1-line" data-split aria-hidden="true">Smart automation,</span>
+            <span class="h1-line" data-split aria-hidden="true">grounded in</span>
+            <span class="rotator" aria-hidden="true">
+              <span class="rot-item is-active">business insight.</span>
+              <span class="rot-item">audit‑grade control.</span>
+              <span class="rot-item">scalable systems.</span>
+            </span>
+          </h1>
+          <p class="hero-sub intro-item" style="--d:4">I’m <strong>Angelo De Ocampo</strong>, an AI Automation Specialist building practical systems that connect business processes, data, and intelligent automation.</p>
+          <div class="hero-actions intro-item" style="--d:5">
+            <a class="btn btn-primary" href="#projects" data-magnetic><span class="btn-text">Explore my work</span><span class="btn-icon" aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#contact" data-magnetic><span class="btn-text">Start a conversation</span></a>
+            <a class="btn btn-ghost btn-cv" href="Angelo-De-Ocampo-CV.pdf" download="Angelo-De-Ocampo-CV.pdf" data-magnetic><span class="btn-text">Download CV</span><span class="btn-icon" aria-hidden="true">↓</span></a>
           </div>
-          <div class="proof-row" aria-label="Professional highlights">
+          <div class="proof-row intro-item" style="--d:6" aria-label="Professional highlights">
             <div><strong data-count="14" data-suffix="+">14+</strong><span>Years in operations</span></div>
             <div><strong data-count="40" data-suffix="%+">40%+</strong><span>Reporting overhead reduced</span></div>
             <div><strong data-count="6" data-suffix="">6</strong><span>Featured workflows</span></div>
           </div>
         </div>
-        <div class="hero-visual reveal">
-          <div class="portrait-wrap">
-            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-            <img src="assets/angelo-profile.webp" alt="Professional studio portrait of Angelo De Ocampo in a dark suit, white shirt, and dark tie." width="1000" height="1000">
-            <div class="floating-card card-top"><span>⚡</span><div><small>Specialty</small><strong>AI + Operations</strong></div></div>
-            <div class="floating-card card-bottom"><span>✓</span><div><small>Design principle</small><strong>Secure by design</strong></div></div>
+
+        <div class="hero-visual intro-item" style="--d:3">
+          <div class="portrait-stage" data-tilt>
+            <div class="portrait-ring" aria-hidden="true"></div>
+            <div class="orbit orbit-one" aria-hidden="true"><b>Make</b></div>
+            <div class="orbit orbit-two" aria-hidden="true"><b>n8n</b></div>
+            <div class="orbit orbit-three" aria-hidden="true"><b>Zapier</b></div>
+            <div class="portrait-frame">
+              <img src="assets/angelo-profile.webp" alt="Professional studio portrait of Angelo De Ocampo in a dark suit, white shirt, and dark tie." width="1000" height="1000" class="portrait-img" data-fallback="portrait">
+              <div class="portrait-fallback" aria-hidden="true"><span>AD</span></div>
+              <div class="portrait-shine" aria-hidden="true"></div>
+            </div>
+            <div class="floating-card card-top" data-depth="40"><span class="fc-icon">⚡</span><div><small>Specialty</small><strong>AI + Operations</strong></div></div>
+            <div class="floating-card card-bottom" data-depth="60"><span class="fc-icon">✓</span><div><small>Design principle</small><strong>Secure by design</strong></div></div>
+            <div class="floating-card card-live" data-depth="25" aria-hidden="true">
+              <div class="live-head"><span class="live-dot"></span><small>Live run</small></div>
+              <div class="live-feed"><strong class="live-text">Asana → Xero report synced</strong></div>
+              <div class="live-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="tool-strip" aria-label="Core tools"><div class="marquee"><span>Zapier</span><i>◆</i><span>Make</span><i>◆</i><span>n8n</span><i>◆</i><span>Power Automate</span><i>◆</i><span>Excel VBA</span><i>◆</i><span>Apps Script</span><i>◆</i><span>AI Agents</span><i>◆</i><span>Process Controls</span></div></div>
+
+      <a class="scroll-cue" href="#about" aria-label="Scroll to About section"><span class="scroll-mouse"><i></i></span><span>Scroll</span></a>
+
+      <div class="tool-strip" aria-label="Core tools">
+        <div class="marquee-track">
+          <div class="marquee"><span>Zapier</span><i>◆</i><span>Make</span><i>◆</i><span>n8n</span><i>◆</i><span>Power Automate</span><i>◆</i><span>Excel VBA</span><i>◆</i><span>Apps Script</span><i>◆</i><span>AI Agents</span><i>◆</i><span>Process Controls</span><i>◆</i></div>
+          <div class="marquee" aria-hidden="true"><span>Zapier</span><i>◆</i><span>Make</span><i>◆</i><span>n8n</span><i>◆</i><span>Power Automate</span><i>◆</i><span>Excel VBA</span><i>◆</i><span>Apps Script</span><i>◆</i><span>AI Agents</span><i>◆</i><span>Process Controls</span><i>◆</i></div>
+        </div>
+      </div>
     </section>
 
+    <!-- ================= ABOUT ================= -->
     <section class="section about" id="about">
       <div class="container split-grid">
-        <div class="section-heading reveal"><span class="kicker">01 / About</span><h2>Where operational rigor meets intelligent automation.</h2></div>
-        <div class="about-copy reveal"><p class="lead">I bridge complex business processes and cutting-edge technology—designing automated systems that are efficient, compliant, and built to scale.</p><p>My foundation in operational auditing gives me a different lens. I don’t just ask whether an automation works. I ask whether it is controlled, traceable, resilient, and ready for the real world.</p><div class="value-grid"><article><span>01</span><h3>Understand</h3><p>Map the process, stakeholders, data, controls, and real bottlenecks.</p></article><article><span>02</span><h3>Architect</h3><p>Choose practical tools and create a scalable, human-centered workflow.</p></article><article><span>03</span><h3>Control</h3><p>Build in validation, audit trails, exception handling, and documentation.</p></article><article><span>04</span><h3>Improve</h3><p>Measure outcomes, remove friction, and evolve the system with the business.</p></article></div></div>
+        <div class="section-heading sticky-heading">
+          <span class="kicker reveal">01 — About</span>
+          <h2 class="reveal-words" data-split>Where operational rigor meets intelligent automation.</h2>
+          <div class="about-badge reveal" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><defs><path id="circlePath" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#circlePath">AUDIT-GRADE · AI-POWERED · BUILT TO SCALE · </textPath></text></svg>
+            <span>✦</span>
+          </div>
+        </div>
+        <div class="about-copy">
+          <p class="lead" data-scrub>I bridge complex business processes and cutting-edge technology—designing automated systems that are efficient, compliant, and built to scale.</p>
+          <p class="reveal">My foundation in operational auditing gives me a different lens. I don’t just ask whether an automation works. I ask whether it is controlled, traceable, resilient, and ready for the real world.</p>
+          <div class="value-grid">
+            <article class="value-card reveal spotlight"><div class="value-top"><span>01</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></div><h3>Understand</h3><p>Map the process, stakeholders, data, controls, and real bottlenecks.</p></article>
+            <article class="value-card reveal spotlight"><div class="value-top"><span>02</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><path d="M10 6.5h4a3 3 0 0 1 3 3V14"/></svg></div><h3>Architect</h3><p>Choose practical tools and create a scalable, human-centered workflow.</p></article>
+            <article class="value-card reveal spotlight"><div class="value-top"><span>03</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.3-4.4"/></svg></div><h3>Control</h3><p>Build in validation, audit trails, exception handling, and documentation.</p></article>
+            <article class="value-card reveal spotlight"><div class="value-top"><span>04</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5.5-5.5 4 4L21 7"/><path d="M15 7h6v6"/></svg></div><h3>Improve</h3><p>Measure outcomes, remove friction, and evolve the system with the business.</p></article>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- ================= SKILLS ================= -->
     <section class="section skills" id="skills">
       <div class="container">
-        <div class="section-heading reveal"><span class="kicker">02 / Expertise</span><h2>A systems-minded toolkit.</h2><p>From workflow strategy to implementation and control.</p></div>
+        <div class="section-heading center-heading">
+          <span class="kicker reveal">02 — Expertise</span>
+          <h2 class="reveal-words" data-split>A systems-minded toolkit.</h2>
+          <p class="reveal">From workflow strategy to implementation and control.</p>
+        </div>
         <div class="skills-grid">
-          <article class="skill-card reveal"><div class="skill-icon">AI</div><h3>AI & Automation</h3><p>Intelligent workflows that connect tools, decisions, and people.</p><div class="chips"><span>Zapier</span><span>Make</span><span>n8n</span><span>Power Automate</span><span>Prompt Engineering</span><span>AI Agent Design</span></div></article>
-          <article class="skill-card reveal"><div class="skill-icon">{ }</div><h3>Data & Development</h3><p>Purpose-built systems for reporting, analysis, and daily operations.</p><div class="chips"><span>Advanced Excel</span><span>VBA</span><span>Google Sheets</span><span>Apps Script</span><span>Web Apps</span><span>Data Visualization</span></div></article>
-          <article class="skill-card reveal"><div class="skill-icon">✓</div><h3>Business Operations</h3><p>Automation grounded in controls, compliance, and process excellence.</p><div class="chips"><span>Operational Audit</span><span>Process Optimization</span><span>Internal Controls</span><span>Compliance</span><span>Inventory</span><span>QuickBooks</span><span>CRM</span></div></article>
+          <article class="skill-card reveal spotlight">
+            <div class="skill-head"><div class="skill-icon">AI</div><span class="skill-index">/01</span></div>
+            <h3>AI &amp; Automation</h3><p>Intelligent workflows that connect tools, decisions, and people.</p>
+            <div class="chips"><span>Zapier</span><span>Make</span><span>n8n</span><span>Power Automate</span><span>Prompt Engineering</span><span>AI Agent Design</span></div>
+            <div class="skill-meter" aria-hidden="true"><i style="--w:94%"></i></div>
+          </article>
+          <article class="skill-card reveal spotlight">
+            <div class="skill-head"><div class="skill-icon">{ }</div><span class="skill-index">/02</span></div>
+            <h3>Data &amp; Development</h3><p>Purpose-built systems for reporting, analysis, and daily operations.</p>
+            <div class="chips"><span>Advanced Excel</span><span>VBA</span><span>Google Sheets</span><span>Apps Script</span><span>Web Apps</span><span>Data Visualization</span></div>
+            <div class="skill-meter" aria-hidden="true"><i style="--w:88%"></i></div>
+          </article>
+          <article class="skill-card reveal spotlight">
+            <div class="skill-head"><div class="skill-icon">✓</div><span class="skill-index">/03</span></div>
+            <h3>Business Operations</h3><p>Automation grounded in controls, compliance, and process excellence.</p>
+            <div class="chips"><span>Operational Audit</span><span>Process Optimization</span><span>Internal Controls</span><span>Compliance</span><span>Inventory</span><span>QuickBooks</span><span>CRM</span></div>
+            <div class="skill-meter" aria-hidden="true"><i style="--w:97%"></i></div>
+          </article>
         </div>
       </div>
     </section>
 
+    <!-- ================= PROJECTS ================= -->
     <section class="section projects" id="projects">
       <div class="container">
-        <div class="project-head reveal"><div class="section-heading"><span class="kicker">03 / Selected work</span><h2>Automation with measurable purpose.</h2></div><div class="filters" role="group" aria-label="Filter projects"><button class="active" data-filter="all">All</button><button data-filter="ai">AI</button><button data-filter="workflow">Workflow</button><button data-filter="data">Data</button></div></div>
-        <div class="project-grid">
-          <article class="project-card reveal" data-category="workflow data" tabindex="0" data-project="xero"><img class="project-thumb" src="assets/asana-xero.webp" alt="Make workflow connecting Asana, Xero, Google Sheets, routing, iteration, aggregation, and attachment handling." loading="lazy"><div class="project-body"><div class="project-number">01</div><div class="project-tags"><span>Make</span><span>Asana</span><span>Xero</span><span>Google Sheets</span></div><h3>Asana → Xero Bank Transaction Reporting</h3><p>Captures completed Asana tasks, calls Xero, branches records, builds a report, uploads the result, and clears staging data.</p><div class="impact"><span><b>12 hrs</b> saved / month</span><span><b>$120</b> estimated / month</span></div><button class="text-link">Explore workflow <span>↗</span></button></div></article>
-          <article class="project-card reveal" data-category="ai workflow" tabindex="0" data-project="content"><img class="project-thumb" src="assets/ai-content.webp" alt="Zapier workflow using Google Drive, filters, AI, loops, paths, Facebook, LinkedIn, and Instagram." loading="lazy"><div class="project-body"><div class="project-number">02</div><div class="project-tags"><span>Zapier</span><span>AI</span><span>Social Media</span></div><h3>AI Content Repurposing Engine</h3><p>Turns new source files into multiple AI-assisted posts, loops through outputs, and routes content to social channels.</p><div class="impact"><span><b>18 hrs</b> saved / month</span><span><b>$180</b> estimated / month</span></div><button class="text-link">Explore workflow <span>↗</span></button></div></article>
-          <article class="project-card reveal" data-category="workflow" tabindex="0" data-project="leads"><img class="project-thumb" src="assets/asana-leads.webp" alt="Zapier lead pipeline with five Asana stages, email follow-ups, delays, AI content, and Google Drive actions." loading="lazy"><div class="project-body"><div class="project-number">03</div><div class="project-tags"><span>Zapier</span><span>Asana</span><span>Gmail</span><span>Google Drive</span></div><h3>Asana Lead Pipeline Automation</h3><p>Routes five lead stages through folder creation, reminders, quotations, approval onboarding, and close-out messaging.</p><div class="impact"><span><b>15 hrs</b> saved / month</span><span><b>$150</b> estimated / month</span></div><button class="text-link">Explore workflow <span>↗</span></button></div></article>
-          <article class="project-card reveal" data-category="ai workflow" tabindex="0" data-project="video"><img class="project-thumb" src="assets/ai-video.webp" alt="n8n AI video workflow covering prompt generation, JWT authentication, video creation, monitoring, conversion, and publishing." loading="lazy"><div class="project-body"><div class="project-number">04</div><div class="project-tags"><span>n8n</span><span>Gemini</span><span>YouTube</span><span>Facebook</span></div><h3>AI Video Creation & Publishing</h3><p>Generates structured prompts, authenticates by JWT, creates and monitors videos, converts files, and publishes to two platforms.</p><div class="impact"><span><b>24 hrs</b> saved / month</span><span><b>$240</b> estimated / month</span></div><button class="text-link">Explore workflow <span>↗</span></button></div></article>
-          <article class="project-card reveal" data-category="ai workflow data" tabindex="0" data-project="docs"><img class="project-thumb" src="assets/attachment-filing.webp" alt="Make workflow watching Gmail attachments, analyzing files with AI, generating names, uploading to Drive, and logging to Sheets." loading="lazy"><div class="project-body"><div class="project-number">05</div><div class="project-tags"><span>Make</span><span>Gmail</span><span>AI</span><span>Google Drive</span></div><h3>Automated Attachment Renaming & Filing</h3><p>Collects email attachments, analyzes content, generates standardized names, files documents, logs records, and sends confirmation.</p><div class="impact"><span><b>8 hrs</b> saved / month</span><span><b>$80</b> estimated / month</span></div><button class="text-link">Explore workflow <span>↗</span></button></div></article>
-          <article class="project-card reveal" data-category="ai data" tabindex="0" data-project="rag"><img class="project-thumb" src="assets/rag-agent.webp" alt="n8n RAG workflow ingesting Google Drive files, generating Gemini embeddings, storing vectors in Supabase, and cleaning deleted records." loading="lazy"><div class="project-body"><div class="project-number">06</div><div class="project-tags"><span>n8n</span><span>Gemini</span><span>Supabase</span><span>RAG</span></div><h3>Basic RAG Knowledge Pipeline</h3><p>Ingests Drive files, creates Gemini embeddings, stores them in Supabase Vector Store, and cleans up deleted source records.</p><div class="impact"><span><b>10 hrs</b> saved / month</span><span><b>$100</b> estimated / month</span></div><button class="text-link">Explore workflow <span>↗</span></button></div></article>
+        <div class="project-head">
+          <div class="section-heading">
+            <span class="kicker reveal">03 — Selected work</span>
+            <h2 class="reveal-words" data-split>Automation with measurable purpose.</h2>
+          </div>
+          <div class="filters reveal" role="group" aria-label="Filter projects">
+            <span class="filter-indicator" aria-hidden="true"></span>
+            <button class="active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="ai" aria-pressed="false">AI</button>
+            <button type="button" data-filter="workflow" aria-pressed="false">Workflow</button>
+            <button type="button" data-filter="data" aria-pressed="false">Data</button>
+          </div>
         </div>
-        <div class="portfolio-impact reveal"><div><span>Estimated combined impact</span><strong>87 hours</strong><small>saved per month</small></div><div><span>Estimated labor value</span><strong>$870</strong><small>saved per month</small></div><div><span>Annualized estimate</span><strong>$10,440</strong><small>labor value per year</small></div></div>
-        <p class="estimate-note reveal">Illustrative estimates based on moderate monthly usage and a $10/hour manual-labor benchmark. Actual savings depend on run volume, exception rates, review time, software fees, and API costs.</p>      </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal spotlight" data-category="workflow data" tabindex="0" data-project="xero" aria-label="Open case study: Asana to Xero Bank Transaction Reporting">
+            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>make.com / scenario</span></div><img class="project-thumb" src="assets/asana-xero.webp" alt="Make workflow connecting Asana, Xero, Google Sheets, routing, iteration, aggregation, and attachment handling." loading="lazy" data-fallback="flow"></div>
+            <div class="project-body"><div class="project-number">01</div><div class="project-tags"><span>Make</span><span>Asana</span><span>Xero</span><span>Google Sheets</span></div><h3>Asana → Xero Bank Transaction Reporting</h3><p>Captures completed Asana tasks, calls Xero, branches records, builds a report, uploads the result, and clears staging data.</p><div class="impact"><span><b>12 hrs</b> saved / month</span><span><b>$120</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+          </article>
+          <article class="project-card reveal spotlight" data-category="ai workflow" tabindex="0" data-project="content" aria-label="Open case study: AI Content Repurposing Engine">
+            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>zapier / zap</span></div><img class="project-thumb" src="assets/ai-content.webp" alt="Zapier workflow using Google Drive, filters, AI, loops, paths, Facebook, LinkedIn, and Instagram." loading="lazy" data-fallback="flow"></div>
+            <div class="project-body"><div class="project-number">02</div><div class="project-tags"><span>Zapier</span><span>AI</span><span>Social Media</span></div><h3>AI Content Repurposing Engine</h3><p>Turns new source files into multiple AI-assisted posts, loops through outputs, and routes content to social channels.</p><div class="impact"><span><b>18 hrs</b> saved / month</span><span><b>$180</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+          </article>
+          <article class="project-card reveal spotlight" data-category="workflow" tabindex="0" data-project="leads" aria-label="Open case study: Asana Lead Pipeline Automation">
+            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>zapier / zap</span></div><img class="project-thumb" src="assets/asana-leads.webp" alt="Zapier lead pipeline with five Asana stages, email follow-ups, delays, AI content, and Google Drive actions." loading="lazy" data-fallback="flow"></div>
+            <div class="project-body"><div class="project-number">03</div><div class="project-tags"><span>Zapier</span><span>Asana</span><span>Gmail</span><span>Google Drive</span></div><h3>Asana Lead Pipeline Automation</h3><p>Routes five lead stages through folder creation, reminders, quotations, approval onboarding, and close-out messaging.</p><div class="impact"><span><b>15 hrs</b> saved / month</span><span><b>$150</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+          </article>
+          <article class="project-card reveal spotlight" data-category="ai workflow" tabindex="0" data-project="video" aria-label="Open case study: AI Video Creation and Publishing">
+            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>n8n / workflow</span></div><img class="project-thumb" src="assets/ai-video.webp" alt="n8n AI video workflow covering prompt generation, JWT authentication, video creation, monitoring, conversion, and publishing." loading="lazy" data-fallback="flow"></div>
+            <div class="project-body"><div class="project-number">04</div><div class="project-tags"><span>n8n</span><span>Gemini</span><span>YouTube</span><span>Facebook</span></div><h3>AI Video Creation &amp; Publishing</h3><p>Generates structured prompts, authenticates by JWT, creates and monitors videos, converts files, and publishes to two platforms.</p><div class="impact"><span><b>24 hrs</b> saved / month</span><span><b>$240</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+          </article>
+          <article class="project-card reveal spotlight" data-category="ai workflow data" tabindex="0" data-project="docs" aria-label="Open case study: Automated Attachment Renaming and Filing">
+            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>make.com / scenario</span></div><img class="project-thumb" src="assets/attachment-filing.webp" alt="Make workflow watching Gmail attachments, analyzing files with AI, generating names, uploading to Drive, and logging to Sheets." loading="lazy" data-fallback="flow"></div>
+            <div class="project-body"><div class="project-number">05</div><div class="project-tags"><span>Make</span><span>Gmail</span><span>AI</span><span>Google Drive</span></div><h3>Automated Attachment Renaming &amp; Filing</h3><p>Collects email attachments, analyzes content, generates standardized names, files documents, logs records, and sends confirmation.</p><div class="impact"><span><b>8 hrs</b> saved / month</span><span><b>$80</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+          </article>
+          <article class="project-card reveal spotlight" data-category="ai data" tabindex="0" data-project="rag" aria-label="Open case study: Basic RAG Knowledge Pipeline">
+            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>n8n / workflow</span></div><img class="project-thumb" src="assets/rag-agent.webp" alt="n8n RAG workflow ingesting Google Drive files, generating Gemini embeddings, storing vectors in Supabase, and cleaning deleted records." loading="lazy" data-fallback="flow"></div>
+            <div class="project-body"><div class="project-number">06</div><div class="project-tags"><span>n8n</span><span>Gemini</span><span>Supabase</span><span>RAG</span></div><h3>Basic RAG Knowledge Pipeline</h3><p>Ingests Drive files, creates Gemini embeddings, stores them in Supabase Vector Store, and cleans up deleted source records.</p><div class="impact"><span><b>10 hrs</b> saved / month</span><span><b>$100</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+          </article>
+        </div>
+
+        <div class="portfolio-impact reveal">
+          <div><span>Estimated combined impact</span><strong data-count="87" data-suffix=" hours">87 hours</strong><small>saved per month</small></div>
+          <div><span>Estimated labor value</span><strong data-count="870" data-prefix="$">$870</strong><small>saved per month</small></div>
+          <div><span>Annualized estimate</span><strong data-count="10440" data-prefix="$">$10,440</strong><small>labor value per year</small></div>
+        </div>
+        <p class="estimate-note reveal">Illustrative estimates based on moderate monthly usage and a $10/hour manual-labor benchmark. Actual savings depend on run volume, exception rates, review time, software fees, and API costs.</p>
+      </div>
     </section>
 
+    <!-- ================= EXPERIENCE ================= -->
     <section class="section experience" id="experience">
       <div class="container split-grid">
-        <div class="section-heading reveal"><span class="kicker">04 / Experience</span><h2>Built on controls.<br>Focused on impact.</h2><p>A career progression from evaluating systems to architecting better ones.</p></div>
+        <div class="section-heading sticky-heading">
+          <span class="kicker reveal">04 — Experience</span>
+          <h2 class="reveal-words" data-split>Built on controls. Focused on impact.</h2>
+          <p class="reveal">A career progression from evaluating systems to architecting better ones.</p>
+        </div>
         <div class="timeline">
-          <article class="timeline-item reveal"><div class="time-dot"></div><div class="time-meta"><span>Feb 2019 — Present</span></div><h3>AI Automation Specialist & Operations Strategist</h3><ul><li>Architected digital document-control systems for reliable data integrity and audit readiness.</li><li>Developed tracking systems for manpower and operating metrics, reducing manual reporting overhead by more than 40%.</li><li>Turned large datasets into production and activity reports for executive decisions.</li><li>Designed bespoke workflows using Zapier, Make, and AI agents to reduce manual workload.</li></ul></article>
+          <div class="timeline-progress" aria-hidden="true"></div>
+          <article class="timeline-item reveal"><div class="time-dot"></div><div class="time-meta"><span>Feb 2019 — Present</span><em>Current</em></div><h3>AI Automation Specialist &amp; Operations Strategist</h3><ul><li>Architected digital document-control systems for reliable data integrity and audit readiness.</li><li>Developed tracking systems for manpower and operating metrics, reducing manual reporting overhead by more than 40%.</li><li>Turned large datasets into production and activity reports for executive decisions.</li><li>Designed bespoke workflows using Zapier, Make, and AI agents to reduce manual workload.</li></ul></article>
           <article class="timeline-item reveal"><div class="time-dot"></div><div class="time-meta"><span>Oct 2011 — Jan 2019</span></div><h3>Audit Supervisor</h3><ul><li>Evaluated internal controls, process bottlenecks, and fraud risks.</li><li>Recommended process and automation improvements to strengthen governance.</li><li>Analyzed financial disbursements and operational data for compliance.</li></ul></article>
           <article class="timeline-item reveal education-item"><div class="time-dot"></div><div class="time-meta"><span>Education</span></div><h3>Bachelor of Science in Accountancy</h3><p>Manuel S. Enverga University Foundation, Inc.</p></article>
         </div>
       </div>
     </section>
 
+    <!-- ================= CREDENTIALS ================= -->
     <section class="section credentials">
-      <div class="container"><div class="section-heading reveal"><span class="kicker">05 / Credentials</span><h2>Continuous learning, practical application.</h2></div><div class="credential-row reveal"><span>Zapier</span><span>Make</span><span>n8n</span><span>GoHighLevel</span><span>AI Prompt Engineering</span></div></div>
+      <div class="container">
+        <div class="section-heading center-heading">
+          <span class="kicker reveal">05 — Credentials</span>
+          <h2 class="reveal-words" data-split>Continuous learning, practical application.</h2>
+        </div>
+        <div class="credential-row">
+          <span class="reveal"><i aria-hidden="true">✦</i>Zapier</span><span class="reveal"><i aria-hidden="true">✦</i>Make</span><span class="reveal"><i aria-hidden="true">✦</i>n8n</span><span class="reveal"><i aria-hidden="true">✦</i>GoHighLevel</span><span class="reveal"><i aria-hidden="true">✦</i>AI Prompt Engineering</span>
+        </div>
+      </div>
     </section>
 
+    <!-- ================= CONTACT ================= -->
     <section class="section contact" id="contact">
-      <div class="container contact-card reveal">
-        <div><span class="kicker">Let’s build something useful</span><h2>Let’s turn your operational challenges into smarter, scalable workflows.</h2><p>Tell me where the friction is, and I’ll help design a practical automation that saves time, improves consistency, and supports the way your business works.</p></div>
-        <div class="contact-actions"><a class="btn btn-light contact-cta" href="mailto:angelo.deocampo@yahoo.com?subject=Automation%20Project%20Inquiry">Start Your Automation Project <span>↗</span></a><a class="contact-email" href="mailto:angelo.deocampo@yahoo.com">angelo.deocampo@yahoo.com</a><button class="copy-btn" data-copy="angelo.deocampo@yahoo.com">Copy email</button><a class="social-link" href="https://github.com/darkgambit" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a class="social-link" href="tel:+639158746460">+63 915 874 6460</a></div>
+      <div class="container">
+        <div class="contact-card reveal">
+          <div class="contact-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="contact-copy">
+            <span class="kicker">Let’s build something useful</span>
+            <h2 class="reveal-words" data-split>Let’s turn your operational challenges into smarter, scalable workflows.</h2>
+            <p>Tell me where the friction is, and I’ll help design a practical automation that saves time, improves consistency, and supports the way your business works.</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-light contact-cta" href="mailto:angelo.deocampo@yahoo.com?subject=Automation%20Project%20Inquiry" data-magnetic><span class="btn-text">Start Your Automation Project</span><span class="btn-icon" aria-hidden="true">↗</span></a>
+            <a class="contact-email" href="mailto:angelo.deocampo@yahoo.com">angelo.deocampo@yahoo.com</a>
+            <div class="contact-row">
+              <button class="copy-btn" type="button" data-copy="angelo.deocampo@yahoo.com"><span>Copy email</span></button>
+              <a class="social-link" href="https://github.com/darkgambit" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </div>
+            <a class="social-link" href="tel:+639158746460">+63 915 874 6460</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer><div class="container"><a class="brand" href="#top"><span class="brand-name">Angelo</span></a><p>© <span id="year"></span> Angelo De Ocampo. Built with intention.</p><a class="footer-cv" href="Angelo-De-Ocampo-CV.pdf" download="Angelo-De-Ocampo-CV.pdf">Download CV ↓</a><button class="back-to-top" type="button" aria-label="Back to the top of the page">Back to top ↑</button></div></footer>
+  <footer>
+    <div class="container footer-top">
+      <a class="brand" href="#top"><span class="brand-mark">A</span><span class="brand-name">Angelo<b>.</b></span></a>
+      <p>© <span id="year"></span> Angelo De Ocampo. Built with intention.</p>
+      <a class="footer-cv" href="Angelo-De-Ocampo-CV.pdf" download="Angelo-De-Ocampo-CV.pdf">Download CV ↓</a>
+      <button class="back-to-top" type="button" aria-label="Back to the top of the page">Back to top <span aria-hidden="true">↑</span></button>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">De Ocampo</div>
+  </footer>
 
-  <dialog class="project-modal" aria-labelledby="modal-title"><button class="modal-close" aria-label="Close case study">×</button><div class="modal-kicker">Workflow case study</div><img class="modal-image" id="modal-image" src="" alt=""><h2 id="modal-title"></h2><p id="modal-summary"></p><div class="modal-grid"><div><small>Challenge</small><p id="modal-challenge"></p></div><div><small>Solution</small><p id="modal-solution"></p></div><div><small>Value</small><p id="modal-value"></p></div></div><div class="modal-note" id="modal-note">Impact figures are modeled estimates rather than audited client results. Detailed implementation credentials remain private.</div></dialog>
-  <div class="toast" role="status" aria-live="polite">Email copied</div>
+  <dialog class="project-modal" aria-labelledby="modal-title">
+    <div class="modal-shell">
+      <button class="modal-close" type="button" aria-label="Close case study">×</button>
+      <div class="modal-kicker"><span>Workflow case study</span><span class="modal-count" id="modal-count"></span></div>
+      <div class="modal-media"><img class="modal-image" id="modal-image" src="" alt="" data-fallback="flow"></div>
+      <div class="modal-tags" id="modal-tags"></div>
+      <h2 id="modal-title"></h2>
+      <p id="modal-summary"></p>
+      <div class="modal-grid"><div><small>Challenge</small><p id="modal-challenge"></p></div><div><small>Solution</small><p id="modal-solution"></p></div><div><small>Value</small><p id="modal-value"></p></div></div>
+      <div class="modal-foot">
+        <div class="modal-note" id="modal-note">Impact figures are modeled estimates rather than audited client results. Detailed implementation credentials remain private.</div>
+        <div class="modal-nav"><button type="button" class="modal-prev" aria-label="Previous case study">←</button><button type="button" class="modal-next" aria-label="Next case study">→</button></div>
+      </div>
+    </div>
+  </dialog>
+  <div class="toast" role="status" aria-live="polite"><span class="toast-icon" aria-hidden="true">✓</span> Email copied</div>
   <script src="script.js"></script>
 </body>
 </html>
