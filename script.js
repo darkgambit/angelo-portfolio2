@@ -298,7 +298,7 @@
     // Lead paragraph scrub
     if (scrubWords.length) {
       const r = scrubEl.getBoundingClientRect();
-      const p = clamp((innerHeight * .85 - r.top) / (r.height + innerHeight * .35), 0, 1);
+      const p = clamp((innerHeight * .9 - r.top) / (r.height + innerHeight * .2), 0, 1);
       const lit = Math.round(p * scrubWords.length);
       scrubWords.forEach((w, i) => w.classList.toggle('lit', i < lit));
     }
@@ -430,11 +430,7 @@
         const y = (e.clientY - r.top - r.height / 2) * strength;
         el.style.translate = `${x}px ${y}px`;
       });
-      el.addEventListener('pointerleave', () => {
-        el.style.transition += ', translate .6s cubic-bezier(.22,1,.36,1)';
-        el.style.translate = '0px 0px';
-        setTimeout(() => { el.style.transition = ''; }, 600);
-      });
+      el.addEventListener('pointerleave', () => { el.style.translate = '0px 0px'; });
     });
 
     // 3D tilt on the portrait
