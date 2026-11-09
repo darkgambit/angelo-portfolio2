@@ -518,39 +518,7 @@
   });
 
   /* ---------------------------------------------------------\
-     11. Calendar questions (replaces filters)
-  --------------------------------------------------------- */
-  const calendarWrap = $('.calendar');
-  const calendarCards = $$('.calendar-card');
-  const dateInput = $('#discovery-date');
-  const bookBtn = $('#book-call');
-
-  if (dateInput && bookBtn) {
-    bookBtn.addEventListener('click', () => {
-      const date = dateInput.value;
-      if (!date) {
-        alert('Please select a date first.');
-        return;
-      }
-      const questions = $$('.question-input textarea').map(t => t.value.trim()).filter(Boolean);
-      if (questions.length < 3) {
-        alert('Please answer at least the first 3 questions.');
-        return;
-      }
-      // In production, send to backend or email
-      console.log('Booking:', { date, questions });
-      alert(`Discovery call requested for ${date}. I’ll review your answers and reach out via email.`);
-      // Optional: show toast
-      const toast = $('.toast');
-      if (toast) {
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-      }
-    });
-  }
-
-  /* ---------------------------------------------------------\
-     12. Case-study modal with prev / next
+     11. Case-study modal with prev / next
   --------------------------------------------------------- */
   const cases = {
     xero: { title: 'Asana → Xero Bank Transaction Reporting', image: 'assets/asana-xero.webp', alt: 'Make workflow connecting Asana, Xero, Google Sheets, routing, iteration, aggregation, and attachment actions.', summary: 'A Make scenario that turns completed Asana work into a structured bank-transaction report and returns the final output to the task.', challenge: 'Manual retrieval, formatting, attachment preparation, and staging-sheet cleanup can create delays and reconciliation risk.', solution: 'The workflow watches completed tasks, calls Xero, routes records, iterates and aggregates data, adds rows to Sheets, uploads the report to Asana, then clears the staging range.', value: 'Estimated 12 hours and $120 in labor saved monthly under moderate usage.' },
@@ -626,7 +594,7 @@
   });
 
   /* ---------------------------------------------------------\
-     13. Theme toggle with circular view-transition reveal
+     12. Theme toggle with circular view-transition reveal
   --------------------------------------------------------- */
   const themeBtn = $('.theme-toggle');
   const metaTheme = $('meta[name="theme-color"]');
@@ -653,7 +621,7 @@
   if (metaTheme && root.dataset.theme === 'light') metaTheme.setAttribute('content', '#f4f6f9');
 
   /* ---------------------------------------------------------\
-     14. Utilities: copy email, year, back to top
+     13. Utilities: copy email, year, back to top
   --------------------------------------------------------- */
   const toast = $('.toast');
   $('.copy-btn').addEventListener('click', async e => {
