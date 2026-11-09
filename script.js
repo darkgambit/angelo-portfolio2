@@ -14,7 +14,7 @@
   const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
   const lerp = (a, b, t) => a + (b - a) * t;
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      1. Split text into animatable words
   --------------------------------------------------------- */
   function splitWords(el, wordClass = 'w', innerClass = 'wi') {
@@ -62,10 +62,7 @@
     scrubWords = $$('.sw', scrubEl);
   }
 
-  // Chip stagger indices
-  $$('.chips').forEach(group => $$('span', group).forEach((c, i) => c.style.setProperty('--ci', i)));
-
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      2. Loader → page ready
   --------------------------------------------------------- */
   const loader = $('.loader');
@@ -106,7 +103,7 @@
     requestAnimationFrame(step);
   }
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      3. Rotating hero words + live run ticker
   --------------------------------------------------------- */
   let rotatorStarted = false;
@@ -145,7 +142,7 @@
     }
   }
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      4. Hero canvas — live automation network
   --------------------------------------------------------- */
   const canvas = $('.hero-canvas');
@@ -277,7 +274,7 @@
     window.__refreshCanvasColors = () => { readColors(); if (reduceMotion) draw(); };
   }
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      5. Header, progress bar, scroll-driven effects
   --------------------------------------------------------- */
   const header = $('.site-header');
@@ -317,7 +314,7 @@
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      6. Navigation: mobile menu, scrollspy, sliding indicator
   --------------------------------------------------------- */
   const menu = $('.menu-toggle');
@@ -359,7 +356,7 @@
   new IntersectionObserver(([e]) => { if (e.isIntersecting && e.intersectionRatio > .5) { links.forEach(a => a.classList.remove('active')); moveIndicator(null); } }, { threshold: [.5] }).observe($('.hero'));
   addEventListener('resize', () => moveIndicator($('.nav-links a.active')));
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      7. Reveal on scroll (auto-stagger siblings)
   --------------------------------------------------------- */
   const revealEls = $$('.reveal, .reveal-words');
@@ -374,7 +371,7 @@
   }, { threshold: .14, rootMargin: '0px 0px -6% 0px' });
   revealEls.forEach(el => revealObs.observe(el));
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      8. Count-up numbers
   --------------------------------------------------------- */
   const fmt = n => n.toLocaleString('en-US');
@@ -393,7 +390,7 @@
   }), { threshold: .6 });
   $$('[data-count]').forEach(c => countObs.observe(c));
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      9. Pointer effects: cursor, magnetic, spotlight, tilt
   --------------------------------------------------------- */
   if (finePointer && !reduceMotion) {
@@ -416,7 +413,7 @@
     document.addEventListener('pointerover', e => {
       const t = e.target;
       const view = t.closest('.project-card');
-      const hov = t.closest('a, button, [data-magnetic], .chips span, .credential-row span');
+      const hov = t.closest('a, button, [data-magnetic], .chips span, .credential-row span, .logo-row img');
       body.classList.toggle('cursor-view', !!view);
       body.classList.toggle('cursor-hover', !view && !!hov);
     });
@@ -456,7 +453,7 @@
     });
   });
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      10. Image fallbacks (portrait monogram + generated workflow art)
   --------------------------------------------------------- */
   const svgNS = 'http://www.w3.org/2000/svg';
@@ -496,7 +493,10 @@
   }
   const tagsFor = el => {
     const card = el.closest('.project-card');
-    if (card) return $$('.project-tags span', card).map(s => s.textContent);
+    if (card) return [
+      ...$$('.project-tags span', card).map(s => s.textContent),
+      ...$$('.project-tags img', card).map(i => i.alt)
+    ].filter(Boolean);
     return ($$('#modal-tags span').map(s => s.textContent));
   };
   const applyFallback = img => {
@@ -517,60 +517,39 @@
     if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) applyFallback(img);
   });
 
-  /* ---------------------------------------------------------
-     11. Project filters with FLIP animation
+  /* ---------------------------------------------------------\
+     11. Calendar questions (replaces filters)
   --------------------------------------------------------- */
-  const filterWrap = $('.filters');
-  const filters = $$('.filters button');
-  const filterInd = $('.filter-indicator');
-  const cards = $$('.project-card');
-  const placeFilterInd = () => {
-    const a = $('.filters button.active');
-    if (!a || !filterInd) return;
-    filterInd.style.width = a.offsetWidth + 'px';
-    filterInd.style.transform = `translateX(${a.offsetLeft}px)`;
-  };
-  placeFilterInd();
-  addEventListener('resize', placeFilterInd);
-  document.fonts && document.fonts.ready.then(placeFilterInd);
+  const calendarWrap = $('.calendar');
+  const calendarCards = $$('.calendar-card');
+  const dateInput = $('#discovery-date');
+  const bookBtn = $('#book-call');
 
-  let filtering = false;
-  filters.forEach(btn => btn.addEventListener('click', async () => {
-    if (filtering || btn.classList.contains('active')) return;
-    filtering = true;
-    filters.forEach(b => { b.classList.toggle('active', b === btn); b.setAttribute('aria-pressed', String(b === btn)); });
-    placeFilterInd();
-    const f = btn.dataset.filter;
-    const match = c => f === 'all' || c.dataset.category.split(' ').includes(f);
-    const leaving = cards.filter(c => !match(c) && !c.classList.contains('hidden'));
-    const entering = cards.filter(c => match(c) && c.classList.contains('hidden'));
-    const staying = cards.filter(c => match(c) && !c.classList.contains('hidden'));
-
-    if (reduceMotion) {
-      leaving.forEach(c => c.classList.add('hidden'));
-      entering.forEach(c => { c.classList.remove('hidden'); c.classList.add('visible'); });
-      filtering = false; return;
-    }
-    const first = new Map(staying.map(c => [c, c.getBoundingClientRect()]));
-    await Promise.all(leaving.map(c => c.animate(
-      [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.94)' }],
-      { duration: 260, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' }
-    ).finished));
-    leaving.forEach(c => { c.classList.add('hidden'); c.getAnimations().forEach(a => a.cancel()); });
-    entering.forEach(c => { c.classList.remove('hidden'); c.classList.add('visible'); });
-    staying.forEach(c => {
-      const a = first.get(c), b = c.getBoundingClientRect();
-      const dx = a.left - b.left, dy = a.top - b.top;
-      if (dx || dy) c.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' });
+  if (dateInput && bookBtn) {
+    bookBtn.addEventListener('click', () => {
+      const date = dateInput.value;
+      if (!date) {
+        alert('Please select a date first.');
+        return;
+      }
+      const questions = $$('.question-input textarea').map(t => t.value.trim()).filter(Boolean);
+      if (questions.length < 3) {
+        alert('Please answer at least the first 3 questions.');
+        return;
+      }
+      // In production, send to backend or email
+      console.log('Booking:', { date, questions });
+      alert(`Discovery call requested for ${date}. I’ll review your answers and reach out via email.`);
+      // Optional: show toast
+      const toast = $('.toast');
+      if (toast) {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
     });
-    entering.forEach((c, i) => c.animate(
-      [{ opacity: 0, transform: 'translateY(30px) scale(.96)' }, { opacity: 1, transform: 'none' }],
-      { duration: 650, delay: 80 + i * 70, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
-    ));
-    setTimeout(() => { filtering = false; }, 300);
-  }));
+  }
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      12. Case-study modal with prev / next
   --------------------------------------------------------- */
   const cases = {
@@ -578,7 +557,7 @@
     content: { title: 'AI Content Repurposing Engine', image: 'assets/ai-content.webp', alt: 'Zapier workflow with Google Drive, filters, AI generation, loops, paths, and social publishing actions.', summary: 'A Zapier workflow that converts source files into multiple AI-assisted posts and routes outputs to Facebook, LinkedIn, and Instagram.', challenge: 'Rewriting one asset into multiple platform formats is repetitive and creates inconsistent publishing cadence.', solution: 'A Drive trigger passes qualifying files to AI steps, generates multiple posts, loops through outputs, and uses paths for platform-specific actions.', value: 'Estimated 18 hours and $180 in labor saved monthly, excluding review and platform fees.' },
     leads: { title: 'Asana Lead Pipeline Automation', image: 'assets/asana-leads.webp', alt: 'Zapier lead pipeline with five Asana stages and branched follow-up, quotation, approval, and closing actions.', summary: 'A five-stage Asana lead system covering Ready to Start, No Response, Quoted, Approved, and Paid and Closed.', challenge: 'Manual follow-ups, folder setup, quote reminders, and onboarding messages can cause missed opportunities.', solution: 'Zapier paths trigger Drive organization, scheduled Gmail follow-ups, filters, AI-assisted messages, welcome emails, and stage-specific actions.', value: 'Estimated 15 hours and $150 in labor saved monthly while improving follow-up consistency.' },
     video: { title: 'AI Video Creation & Publishing', image: 'assets/ai-video.webp', alt: 'n8n AI video workflow from prompt generation and JWT authentication through publishing.', summary: 'An end-to-end n8n workflow that creates AI-assisted videos and publishes them to YouTube and Facebook.', challenge: 'Prompting, authentication, generation monitoring, file conversion, and multi-platform publishing require repeated coordination.', solution: 'The workflow schedules prompt generation with Gemini, signs a JWT, calls an external video API, checks status and errors, converts Base64 output, and publishes to both platforms.', value: 'Estimated 24 hours and $240 in labor saved monthly; API generation charges are not included.' },
-    docs: { title: 'Automated Attachment Renaming & Filing', image: 'assets/attachment-filing.webp', alt: 'Make workflow from Gmail attachment intake through AI naming, Drive upload, Sheets logging, aggregation, and confirmation.', summary: 'A document-control scenario that standardizes incoming email attachments and records each processed file.', challenge: 'Manual download, interpretation, naming, filing, logging, and confirmation are slow and prone to inconsistency.', solution: 'Make watches Gmail, lists attachments, analyzes each file with AI, creates a standardized filename, uploads to Drive, logs it in Sheets, aggregates text, and sends a confirmation email.', value: 'Estimated 8 hours and $80 in labor saved monthly with stronger naming consistency.' },
+    docs: { title: 'Automated Attachment Renaming & Filing', image: 'assets/attachment-filing.webp', alt: 'Make workflow from Gmail attachment intake through AI naming, Drive upload, Sheets logging, aggregation, and confirmation.', summary: 'A document-control scenario that standardizes incoming email attachments and records each processed file.', challenge: 'Manual download, interpretation, naming, filing, logging, and confirmation are slow and prone to inconsistency.', solution: 'Make watches Gmail, lists attachments, analyzes each file with AI, creates a standardized filename, uploads to Drive, logs it in Sheets, aggregates text, and sends confirmation.', value: 'Estimated 8 hours and $80 in labor saved monthly with stronger naming consistency.' },
     rag: { title: 'Basic RAG Knowledge Pipeline', image: 'assets/rag-agent.webp', alt: 'n8n RAG pipeline using Google Drive, Gemini embeddings, Supabase Vector Store, and automatic cleanup.', summary: 'A basic retrieval-augmented-generation data pipeline that keeps a vector knowledge store synchronized with Google Drive.', challenge: 'Knowledge files need repeatable ingestion, embedding, storage, and deletion handling before an AI agent can retrieve them reliably.', solution: 'Drive events trigger downloads, Gemini creates embeddings, Supabase stores vectors through a data loader, and deletion events remove stale records.', value: 'Estimated 10 hours and $100 in labor saved monthly for recurring knowledge-base maintenance.' }
   };
   const modal = $('.project-modal');
@@ -592,7 +571,9 @@
     if (!c) return false;
     currentCard = card;
     const tags = $$('.project-tags span', card).map(s => s.textContent);
-    $('#modal-tags').innerHTML = tags.map(t => `<span>${t}</span>`).join('');
+    const logoTags = $$('.project-tags img', card).map(i => i.alt);
+    const allTags = [...tags, ...logoTags];
+    $('#modal-tags').innerHTML = allTags.map(t => `<span>${t}</span>`).join('');
     // reset media
     $$('.flow-fallback', modalMedia).forEach(n => n.remove());
     const mi = $('#modal-image');
@@ -644,7 +625,7 @@
     if (e.key === 'ArrowLeft') stepCase(-1);
   });
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      13. Theme toggle with circular view-transition reveal
   --------------------------------------------------------- */
   const themeBtn = $('.theme-toggle');
@@ -671,7 +652,7 @@
   });
   if (metaTheme && root.dataset.theme === 'light') metaTheme.setAttribute('content', '#f4f6f9');
 
-  /* ---------------------------------------------------------
+  /* ---------------------------------------------------------\
      14. Utilities: copy email, year, back to top
   --------------------------------------------------------- */
   const toast = $('.toast');
