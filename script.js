@@ -5,12 +5,16 @@
 (() => {
   'use strict';
 
-  window.__PORTFOLIO_JS_V = '20261110-v3';
+  window.__PORTFOLIO_JS_V = '20261110-v6';
 
-  /* Optional: After your first test submission, FormSubmit emails you an
-     activation link + a random anonymous string. You can optionally paste
-     that random string (or any n8n / Make / Apps Script webhook URL) here. */
-  const ENDPOINT_OVERRIDE = '';
+  /* =======================================================================
+     OPTIONAL KEY / ALIAS OVERRIDE:
+     - Leave blank ('') to deliver straight to your Gmail inbox automatically
+       (just click 'Activate Form' once in the email sent to your Gmail).
+     - Optional: After activating, you can paste the random FormSubmit alias
+       token OR a free Web3Forms UUID key (https://app.web3forms.com) here.
+     ======================================================================= */
+  const ENDPOINT_KEY_OR_ALIAS = '';
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
@@ -703,17 +707,81 @@
   renderCalendar();
   updateSlotSummary();
 
-  /* Anti-scraper direct inbox delivery */
-  const resolveEndpoint = () => {
-    if (ENDPOINT_OVERRIDE) {
-      return ENDPOINT_OVERRIDE.startsWith('http')
-        ? ENDPOINT_OVERRIDE
-        : `https://formsubmit.co/ajax/${ENDPOINT_OVERRIDE}`;
+  /* Anti-scraper direct inbox delivery (Gmail-configured + optional Web3Forms UUID support) */
+  const isUUID = v => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
+
+  async function sendBookingPayload(fields) {
+    const cfg = ENDPOINT_KEY_OR_ALIAS.trim();
+
+    // If a Web3Forms UUID Access Key is provided, send via Web3Forms API
+    if (cfg && isUUID(cfg)) {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: cfg,
+          subject: fields.subject,
+          from_name: 'Angelo Portfolio Booking',
+          name: fields.name,
+          email: fields.email,
+          replyto: fields.email,
+          botcheck: '',
+          'Company / Organization': fields.company,
+          'Preferred Schedule': fields.scheduleStr,
+          'Inquiry Type': fields.inquiryType,
+          'Operational Friction': fields.frictionList,
+          'Current Tools': fields.toolsList,
+          'Target Timeline': fields.timelinePref,
+          'Project / Role Overview': fields.notes
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || 'Unable to deliver your request right now.');
+      }
+      return;
     }
-    const k = 73;
-    const bytes = [40, 39, 46, 44, 37, 38, 103, 45, 44, 38, 42, 40, 36, 57, 38, 9, 48, 40, 33, 38, 38, 103, 42, 38, 36];
-    return 'https://formsubmit.co/ajax/' + bytes.map(b => String.fromCharCode(b ^ k)).join('');
-  };
+
+    // Default: Anti-scraper encoded Gmail inbox via FormSubmit (works seamlessly with Gmail)
+    const decodedRecipient = (() => {
+      const k = 87;
+      const bytes = [60, 62, 57, 48, 37, 62, 39, 39, 50, 37, 110, 23, 48, 58, 54, 62, 59, 121, 52, 56, 58];
+      return bytes.map(b => String.fromCharCode(b ^ k)).join('');
+    })();
+    const target = cfg || decodedRecipient;
+
+    const params = new URLSearchParams();
+    params.append('_subject', fields.subject);
+    params.append('_template', 'table');
+    params.append('_captcha', 'false');
+    params.append('_honey', '');
+    if (fields.email.toLowerCase() !== decodedRecipient.toLowerCase()) {
+      params.append('_replyto', fields.email);
+    }
+    params.append('Name', fields.name);
+    params.append('Work_Email', fields.email);
+    params.append('Company', fields.company);
+    params.append('Preferred_Schedule', fields.scheduleStr);
+    params.append('Inquiry_Type', fields.inquiryType);
+    params.append('Operational_Friction', fields.frictionList);
+    params.append('Current_Tools', fields.toolsList);
+    params.append('Target_Timeline', fields.timelinePref);
+    params.append('Project_or_Role_Notes', fields.notes);
+
+    const res = await fetch(`https://formsubmit.co/ajax/${target}`, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: params
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.success === 'false' || data.success === false) {
+      const msg = String(data.message || '');
+      if (/needs activation/i.test(msg)) {
+        throw new Error('Activation email sent to your Gmail! Open Gmail (check Updates / Spam too), click "Activate Form", then click Confirm & Send again.');
+      }
+      throw new Error(msg || 'Unable to reach scheduling service right now.');
+    }
+  }
 
   form?.addEventListener('submit', async e => {
     e.preventDefault();
@@ -748,34 +816,21 @@
     const frictionList = getMultiVals('frictionAreas').join(', ') || 'General inquiry';
     const toolsList = getMultiVals('currentTools').join(', ') || 'Open to recommendations';
     const timelinePref = getSingleVal('timeline');
-
-    const payload = {
-      _subject: `[Portfolio Discovery] ${inquiryType} — ${name} (${formatDayLong(selectedDate)} · ${selectedSlot})`,
-      _template: 'table',
-      _captcha: 'false',
-      _replyto: email,
-      _honey: '',
-      Name: name,
-      Email: email,
-      Company: company,
-      Preferred_Schedule: scheduleStr,
-      Inquiry_Type: inquiryType,
-      Operational_Friction: frictionList,
-      Current_Tools: toolsList,
-      Target_Timeline: timelinePref,
-      Project_or_Role_Notes: notes
-    };
+    const subject = `[Portfolio Discovery] ${inquiryType} — ${name} (${formatDayLong(selectedDate)} · ${selectedSlot})`;
 
     try {
-      const res = await fetch(resolveEndpoint(), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload)
+      await sendBookingPayload({
+        subject,
+        name,
+        email,
+        company,
+        scheduleStr,
+        inquiryType,
+        frictionList,
+        toolsList,
+        timelinePref,
+        notes
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || data.success === 'false' || data.success === false) {
-        throw new Error(data.message || 'Unable to reach scheduling service right now.');
-      }
 
       // Show clean receipt view
       $('.step-bar', form).hidden = true;
