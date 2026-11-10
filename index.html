@@ -13,9 +13,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link id="portfolio-css" rel="stylesheet" href="styles.css?v=20261110-v3">
   <script>
-    (function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}document.documentElement.classList.add('js');})();
+    (function(){
+      try{var t=localStorage.getItem('portfolio-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}
+      document.documentElement.classList.add('js');
+      window.addEventListener('load',function(){
+        var v=getComputedStyle(document.documentElement).getPropertyValue('--css-build').trim();
+        if(v.indexOf('20261110-v3')===-1){
+          var l=document.getElementById('portfolio-css');
+          if(l)l.href='styles.css?v=20261110-v3&cb='+Date.now();
+        }
+      });
+    })();
   </script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Angelo De Ocampo","jobTitle":"AI Automation Specialist & Workflow Automation Developer","url":"https://github.com/darkgambit","sameAs":["https://github.com/darkgambit"],"address":{"@type":"PostalAddress","addressRegion":"Bataan","addressCountry":"PH"}}</script>
 </head>
@@ -138,7 +148,7 @@
     <a href="#roadmap" class="rail-dot" data-rail="roadmap" title="Delivery Roadmap"><span>01</span></a>
     <a href="#projects" class="rail-dot" data-rail="projects" title="Selected Workflows"><span>02</span></a>
     <a href="#journey" class="rail-dot" data-rail="journey" title="Career &amp; Stack"><span>03</span></a>
-    <a href="#testimonials" class="rail-dot" data-rail="testimonials" title="Colleague Testimonials"><span>04</span></a>
+    <a href="#testimonials" class="rail-dot" data-rail="testimonials" title="Testimonials"><span>04</span></a>
     <a href="#schedule" class="rail-dot" data-rail="schedule" title="Schedule Discovery"><span>05</span></a>
   </aside>
 
@@ -177,23 +187,23 @@
 
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow hero-anim" style="--d:0">
+          <div class="hero-badge hero-anim" style="--d:0">
             <span class="status-dot"></span>
-            AI Automation Specialist · Workflow Automation Developer
+            <span>AI Automation Specialist · Workflow Developer</span>
           </div>
 
-          <h1 class="hero-anim" style="--d:1" aria-label="Smart automation, engineered for audit-grade control.">
-            Smart automation,<br>
-            engineered for
-            <span class="rotator" aria-hidden="true">
-              <span class="rot-item is-active">audit-grade control.</span>
-              <span class="rot-item">measurable ROI.</span>
-              <span class="rot-item">reliable operations.</span>
+          <h1 class="hero-title hero-anim" style="--d:1" aria-label="Workflow automation, thoughtfully built for reliable operations.">
+            Workflow automation,<br>
+            thoughtfully built for<br>
+            <span class="hero-rotator" aria-hidden="true">
+              <span class="hero-rot-word is-active">reliable operations.</span>
+              <span class="hero-rot-word">accurate reporting.</span>
+              <span class="hero-rot-word">hours saved weekly.</span>
             </span>
           </h1>
 
           <p class="hero-sub hero-anim" style="--d:2">
-            I’m <strong>Angelo De Ocampo</strong>—designing practical workflow automations, AI agents, chatbot workflows, and reporting systems since 2024 across <strong>n8n, Make, Zapier, Power Automate, and Excel/Sheets</strong>, backed by <strong>12+ years</strong> in document control and internal auditing.
+            I’m <strong>Angelo De Ocampo</strong>. Since 2024, I’ve designed practical workflow automations, AI chatbots, and reporting systems across <strong>n8n, Make, Zapier, Power Automate, and Excel/Sheets</strong>—backed by <strong>12+ years</strong> in document control and internal auditing.
           </p>
 
           <div class="hero-actions hero-anim" style="--d:3">
@@ -204,34 +214,42 @@
             <a class="btn btn-ghost" href="#projects">
               <span>Explore Workflows</span>
             </a>
-            <a class="cv-inline" href="Angelo-De-Ocampo-CV.pdf" download="Angelo-De-Ocampo-CV.pdf">
-              Download CV (PDF) <span aria-hidden="true">↓</span>
+            <a class="btn btn-subtle" href="Angelo-De-Ocampo-CV.pdf" download="Angelo-De-Ocampo-CV.pdf">
+              <span>Download CV</span>
+              <span aria-hidden="true">↓</span>
             </a>
           </div>
 
-          <div class="proof-strip hero-anim" style="--d:4" aria-label="Key metrics">
-            <div class="proof-cell">
+          <div class="hero-stats-card hero-anim" style="--d:4" aria-label="Key metrics">
+            <div class="stat-cell">
               <strong data-count="12" data-suffix="+">12+</strong>
               <span>Years in audit &amp; doc control</span>
             </div>
-            <div class="proof-cell">
+            <div class="stat-cell">
               <strong data-count="9" data-suffix="+">9+</strong>
               <span>AI &amp; workflow systems built</span>
             </div>
-            <div class="proof-cell">
+            <div class="stat-cell">
               <strong data-count="87" data-suffix=" hrs">87 hrs</strong>
               <span>Modeled monthly savings</span>
             </div>
           </div>
         </div>
 
-        <div class="hero-visual hero-anim" style="--d:2">
-          <div class="portrait-card">
-            <div class="portrait-frame">
-              <img src="assets/angelo-profile.webp" alt="Portrait of Angelo De Ocampo in a dark blazer at his AI automation workspace." width="1000" height="1000" class="portrait-img" data-fallback="portrait">
-              <div class="portrait-fallback" aria-hidden="true"><span>AD</span></div>
+        <div class="hero-showcase hero-anim" style="--d:2">
+          <div class="hero-profile-card">
+            <div class="profile-card-head" aria-hidden="true">
+              <div class="win-dots"><i></i><i></i><i></i></div>
+              <span class="win-label">angelo.workspace</span>
+              <span class="avail-pill"><i></i>Available</span>
             </div>
-            <div class="portrait-status" aria-hidden="true">
+
+            <div class="hero-photo-box">
+              <img src="assets/angelo-profile.webp" alt="Portrait of Angelo De Ocampo in a dark blazer at his AI automation workspace." width="1000" height="1000" class="hero-photo" data-fallback="portrait">
+              <div class="hero-photo-fallback" aria-hidden="true"><span>AD</span></div>
+            </div>
+
+            <div class="profile-live-bar" aria-hidden="true">
               <span class="live-dot"></span>
               <span class="status-prefix">Pipeline:</span>
               <strong class="live-text">Dental clinic AI · Appointment booked</strong>
@@ -695,16 +713,16 @@
       </div>
     </section>
 
-    <!-- ================= 04: COLLEAGUE TESTIMONIALS ================= -->
+    <!-- ================= 04: TESTIMONIALS ================= -->
     <section class="section testimonials-section" id="testimonials">
       <div class="container">
         <div class="section-head split-head reveal">
           <div>
-            <span class="kicker">04 — Colleague Testimonials</span>
-            <h2>What it’s like working with me.</h2>
+            <span class="kicker">04 — Testimonials</span>
+            <h2>What people say about working with me.</h2>
           </div>
           <p class="head-sub">
-            Honest words from colleagues I’ve worked with day to day.
+            Honest feedback from people I’ve worked with directly.
           </p>
         </div>
 
@@ -726,7 +744,7 @@
             <svg class="t-quote-ico" aria-hidden="true"><use href="#ico-quote"/></svg>
             <blockquote class="t-quote">
               <p>
-                “Angelo is the kind of teammate you can trust with important work. He doesn’t rush just to say a job is done. He checks the small details first, catches mistakes most people miss, and puts things in order so they are easy to follow. Once he organizes a process, you don’t have to worry about messy files or missing records anymore.”
+                “Angelo is someone you can really trust with important work. He doesn’t rush just to say a job is done. He checks the small details first, catches mistakes most people miss, and puts things in order so they are easy to follow. Once he organizes a process, you don’t have to worry about messy files or missing records anymore.”
               </p>
             </blockquote>
             <footer class="t-author">
@@ -739,7 +757,7 @@
             <svg class="t-quote-ico" aria-hidden="true"><use href="#ico-quote"/></svg>
             <blockquote class="t-quote">
               <p>
-                “What I appreciate most about Angelo is how practical he is. When he sees the team doing the same repetitive task every day, he finds a simpler way to do it automatically. Best of all, he never makes things complicated. He explains how everything works in plain words so anyone on the team can use it right away.”
+                “What I appreciate most about Angelo is how practical he is. When he sees repetitive tasks slowing things down, he finds a simpler way to do them automatically. Best of all, he never makes things complicated. He explains how everything works in plain words so anyone can use it right away.”
               </p>
             </blockquote>
             <footer class="t-author">
@@ -978,6 +996,13 @@
     </div>
   </dialog>
 
-  <script src="script.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a583bd064db34731',t:'MTc5NDI5OTg3OQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a583bd064db34731',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  <script id="portfolio-js" src="script.js?v=20261110-v3"></script>
+  <script>
+    if(window.__PORTFOLIO_JS_V!=='20261110-v3'){
+      var s=document.createElement('script');
+      s.src='script.js?v=20261110-v3&cb='+Date.now();
+      document.body.appendChild(s);
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a583d042db297940',t:'MTc5NDMwMDY2Nw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a583d042db297940',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
