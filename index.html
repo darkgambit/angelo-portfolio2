@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portfolio of Angelo De Ocampo — AI Automation Architect specializing in secure, scalable business automation. Book a consultation.">
+  <meta name="description" content="Portfolio of Angelo De Ocampo — AI Automation Architect &amp; Operations Strategist specializing in secure, scalable business automation.">
   <meta name="theme-color" content="#050b16">
   <meta property="og:title" content="Angelo De Ocampo | AI Automation Architect">
-  <meta property="og:description" content="Secure, scalable automation built with an auditor's eye. Schedule a discovery call.">
+  <meta property="og:description" content="Secure, scalable automation built with an auditor's eye.">
   <meta property="og:image" content="assets/angelo-profile.webp">
   <title>Angelo De Ocampo | AI Automation Architect</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2356e3c1'/%3E%3Cstop offset='1' stop-color='%236ba8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='30' text-anchor='middle' fill='%23050b16'%3EA%3C/text%3E%3C/svg%3E">
@@ -16,18 +16,108 @@
   <link rel="stylesheet" href="styles.css">
   <script>
     /* Apply saved theme before paint to avoid a flash */
-    (function(){try{var t=localStorage.getItem('portfolio-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}document.documentElement.classList.add('js');})();
+    (function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}document.documentElement.classList.add('js');})();
   </script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Angelo De Ocampo","jobTitle":"AI Automation Specialist & Operations Strategist","url":"https://github.com/darkgambit","sameAs":["https://github.com/darkgambit"],"address":{"@type":"PostalAddress","addressRegion":"Bataan","addressCountry":"PH"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Angelo De Ocampo","jobTitle":"AI Automation Architect & Operations Strategist","url":"https://github.com/darkgambit","sameAs":["https://github.com/darkgambit"],"address":{"@type":"PostalAddress","addressRegion":"Bataan","addressCountry":"PH"}}</script>
 </head>
 <body>
+  <!-- Self-contained SVG tool & platform icon sprite (zero external requests) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="ico-zapier" viewBox="0 0 24 24">
+      <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" stroke="#FF4F00" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="12" cy="12" r="2.2" fill="#050b16"/>
+    </symbol>
+    <symbol id="ico-make" viewBox="0 0 24 24">
+      <rect x="3" y="6" width="4.4" height="13" rx="2" transform="rotate(-14 5.2 12.5)" fill="#9B51E0"/>
+      <rect x="9.8" y="5" width="4.4" height="14" rx="2" transform="rotate(-8 12 12)" fill="#B558F6"/>
+      <rect x="16.4" y="5" width="4.4" height="14" rx="2" fill="#D946EF"/>
+    </symbol>
+    <symbol id="ico-n8n" viewBox="0 0 24 24">
+      <path d="M6.5 12h4.2l2.6-4.5h4.2M10.7 12l2.6 4.5h4.2" fill="none" stroke="#EA4B71" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="5" cy="12" r="2.5" fill="#EA4B71"/>
+      <circle cx="19" cy="7.5" r="2.5" fill="#EA4B71"/>
+      <circle cx="19" cy="16.5" r="2.5" fill="#EA4B71"/>
+    </symbol>
+    <symbol id="ico-power-automate" viewBox="0 0 24 24">
+      <path d="M3.5 6.5h8.2l5.8 5.5-5.8 5.5H3.5L9.3 12 3.5 6.5Z" fill="#2563EB"/>
+      <path d="M10.5 6.5h5.2L21.5 12l-5.8 5.5h-5.2L16.3 12l-5.8-5.5Z" fill="#60A5FA" opacity=".9"/>
+    </symbol>
+    <symbol id="ico-ai" viewBox="0 0 24 24">
+      <path d="M12 2.8 14.3 9.7 21.2 12l-6.9 2.3L12 21.2 9.7 14.3 2.8 12l6.9-2.3L12 2.8Z" fill="currentColor" style="color:var(--accent)"/>
+    </symbol>
+    <symbol id="ico-excel" viewBox="0 0 24 24">
+      <rect x="4" y="3.5" width="16" height="17" rx="3" fill="#21A366"/>
+      <path d="m9 8.5 6 7m0-7-6 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-sheets" viewBox="0 0 24 24">
+      <rect x="4.5" y="3" width="15" height="18" rx="2.8" fill="#34A853"/>
+      <path d="M8 9.5h8M8 13h8M8 16.5h8M12 9.5v7" stroke="#fff" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="ico-code" viewBox="0 0 24 24">
+      <path d="m8.5 7.5-4.5 4.5 4.5 4.5M15.5 7.5 20 12l-4.5 4.5M13.2 5.5l-2.4 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent2)"/>
+    </symbol>
+    <symbol id="ico-audit" viewBox="0 0 24 24">
+      <path d="M12 3 4.8 6v5.4c0 4.5 3.1 8.2 7.2 9.6 4.1-1.4 7.2-5.1 7.2-9.6V6L12 3Z" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--accent)"/>
+      <path d="m8.8 12.1 2.2 2.2 4.3-4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"/>
+    </symbol>
+    <symbol id="ico-quickbooks" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.5" fill="#2CA01C"/>
+      <path d="M10.2 8.5H8.8a3.5 3.5 0 0 0 0 7h1.4V18M13.8 15.5h1.4a3.5 3.5 0 0 0 0-7h-1.4V6" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-asana" viewBox="0 0 24 24">
+      <circle cx="12" cy="7" r="3.6" fill="#F06A6A"/>
+      <circle cx="6.8" cy="15.8" r="3.6" fill="#F06A6A"/>
+      <circle cx="17.2" cy="15.8" r="3.6" fill="#F06A6A"/>
+    </symbol>
+    <symbol id="ico-xero" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.5" fill="#13B5EA"/>
+      <path d="m7.5 9.2 4.5 5.6 4.5-5.6M7.5 14.8l4.5-5.6 4.5 5.6" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-drive" viewBox="0 0 24 24">
+      <path d="M9.2 4.2h5.6l6.2 10.6h-5.6L9.2 4.2Z" fill="#FBBC04"/>
+      <path d="M3 14.8 8.8 4.2l2.8 4.8-5.8 10.6L3 14.8Z" fill="#34A853"/>
+      <path d="M5.8 19.6h12.4l2.8-4.8H8.6l-2.8 4.8Z" fill="#4285F4"/>
+    </symbol>
+    <symbol id="ico-gmail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="2.6" fill="none" stroke="#EA4335" stroke-width="2"/>
+      <path d="m4 6.5 8 6.2 8-6.2" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ico-gemini" viewBox="0 0 24 24">
+      <path d="M12 2.5C12.4 8.2 15.8 11.6 21.5 12c-5.7.4-9.1 3.8-9.5 9.5-.4-5.7-3.8-9.1-9.5-9.5 5.7-.4 9.1-3.8 9.5-9.5Z" fill="#6BA8FF"/>
+    </symbol>
+    <symbol id="ico-supabase" viewBox="0 0 24 24">
+      <path d="M13.2 2.8 5.2 13.4h6.2l-.6 7.8 8-10.6h-6.2l.6-7.8Z" fill="#3ECF8E"/>
+    </symbol>
+    <symbol id="ico-youtube" viewBox="0 0 24 24">
+      <rect x="2.5" y="5.5" width="19" height="13" rx="3.8" fill="#FF0033"/>
+      <path d="m10 9.2 5.2 2.8L10 14.8V9.2Z" fill="#fff"/>
+    </symbol>
+    <symbol id="ico-facebook" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.5" fill="#1877F2"/>
+      <path d="M13.3 19v-6.2h2.1l.4-2.5h-2.5V8.8c0-.7.3-1.3 1.3-1.3h1.3V5.3c-.5-.1-1.2-.2-2-.2-2 0-3.3 1.2-3.3 3.4v1.8H8.5v2.5h2.1V19h2.7Z" fill="#fff"/>
+    </symbol>
+    <symbol id="ico-social" viewBox="0 0 24 24">
+      <path d="M17.5 6.5 7 12l10.5 5.5" fill="none" stroke="#6BA8FF" stroke-width="1.9"/>
+      <circle cx="6.5" cy="12" r="2.7" fill="#56E3C1"/>
+      <circle cx="17.5" cy="6.5" r="2.5" fill="#6BA8FF"/>
+      <circle cx="17.5" cy="17.5" r="2.5" fill="#6BA8FF"/>
+    </symbol>
+    <symbol id="ico-rag" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="6.5" rx="7" ry="2.8" fill="none" stroke="#56E3C1" stroke-width="1.9"/>
+      <path d="M5 6.5v5.5c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V6.5M5 12v5.5c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V12" fill="none" stroke="#56E3C1" stroke-width="1.9"/>
+    </symbol>
+    <symbol id="ico-ghl" viewBox="0 0 24 24">
+      <path d="M6 17V9l3-3 3 3v8M12 17v-5l3-3 3 3v5" fill="none" stroke="#38BDF8" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Intro loader -->
   <div class="loader" aria-hidden="true">
     <div class="loader-inner">
       <div class="loader-name"><span>Angelo</span><span>De&nbsp;Ocampo</span></div>
-      <div class="loader-meta"><span class="loader-label">Connecting workflows</span><span class="loader-count">0</span></div>
+      <div class="loader-meta"><span class="loader-label">Initializing workflows</span><span class="loader-count">0</span></div>
       <div class="loader-bar"><i></i></div>
     </div>
   </div>
@@ -45,7 +135,7 @@
       </a>
       <div class="nav-links" id="nav-links">
         <span class="nav-indicator" aria-hidden="true"></span>
-        <a href="#about">About</a><a href="#skills">Expertise</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+        <a href="#about">About</a><a href="#skills">Expertise</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
       </div>
       <div class="nav-actions">
         <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
@@ -67,7 +157,7 @@
 
       <div class="hero-grid container">
         <div class="hero-copy">
-          <div class="eyebrow intro-item" style="--d:0"><span class="status-dot"></span> Ready to build?</div>
+          <div class="eyebrow intro-item" style="--d:0"><span class="status-dot"></span> Available for automation projects</div>
           <h1 aria-label="Smart automation, grounded in business insight.">
             <span class="h1-line" data-split aria-hidden="true">Smart automation,</span>
             <span class="h1-line" data-split aria-hidden="true">grounded in</span>
@@ -77,9 +167,10 @@
               <span class="rot-item">scalable systems.</span>
             </span>
           </h1>
-          <p class="hero-sub intro-item" style="--d:4">I’m <strong>Angelo De Ocampo</strong>, an AI Automation Architect. Let’s turn your operational challenges into smarter workflows.</p>
+          <p class="hero-sub intro-item" style="--d:4">I’m <strong>Angelo De Ocampo</strong>, an AI Automation Architect building practical systems that connect business processes, data, and intelligent automation.</p>
           <div class="hero-actions intro-item" style="--d:5">
-            <a class="btn btn-primary" href="#projects" data-magnetic><span class="btn-text">See the work</span><span class="btn-icon" aria-hidden="true">↗</span></a>
+            <a class="btn btn-primary" href="#projects" data-magnetic><span class="btn-text">Explore my work</span><span class="btn-icon" aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#contact" data-magnetic><span class="btn-text">Start a conversation</span></a>
             <a class="btn btn-ghost btn-cv" href="Angelo-De-Ocampo-CV.pdf" download="Angelo-De-Ocampo-CV.pdf" data-magnetic><span class="btn-text">Download CV</span><span class="btn-icon" aria-hidden="true">↓</span></a>
           </div>
           <div class="proof-row intro-item" style="--d:6" aria-label="Professional highlights">
@@ -96,7 +187,7 @@
             <div class="orbit orbit-two" aria-hidden="true"><b>n8n</b></div>
             <div class="orbit orbit-three" aria-hidden="true"><b>Zapier</b></div>
             <div class="portrait-frame">
-              <img src="assets/angelo-profile.webp" alt="Professional studio portrait of Angelo De Ocampo in a dark suit, white shirt, and dark tie." width="1000" height="1000" class="portrait-img" data-fallback="portrait">
+              <img src="assets/angelo-profile.webp" alt="Portrait of Angelo De Ocampo in a dark blazer at his AI automation workspace." width="1000" height="1000" class="portrait-img" data-fallback="portrait">
               <div class="portrait-fallback" aria-hidden="true"><span>AD</span></div>
               <div class="portrait-shine" aria-hidden="true"></div>
             </div>
@@ -112,6 +203,31 @@
       </div>
 
       <a class="scroll-cue" href="#about" aria-label="Scroll to About section"><span class="scroll-mouse"><i></i></span><span>Scroll</span></a>
+
+      <div class="tool-strip" aria-label="Core tools">
+        <div class="marquee-track">
+          <div class="marquee">
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-zapier"/></svg>Zapier</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-make"/></svg>Make</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-n8n"/></svg>n8n</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-power-automate"/></svg>Power Automate</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-excel"/></svg>Excel VBA</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-code"/></svg>Apps Script</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-ai"/></svg>AI Agents</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-audit"/></svg>Process Controls</span><i>◆</i>
+          </div>
+          <div class="marquee" aria-hidden="true">
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-zapier"/></svg>Zapier</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-make"/></svg>Make</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-n8n"/></svg>n8n</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-power-automate"/></svg>Power Automate</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-excel"/></svg>Excel VBA</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-code"/></svg>Apps Script</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-ai"/></svg>AI Agents</span><i>◆</i>
+            <span><svg class="ico" aria-hidden="true"><use href="#ico-audit"/></svg>Process Controls</span><i>◆</i>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ================= ABOUT ================= -->
@@ -143,37 +259,47 @@
       <div class="container">
         <div class="section-heading center-heading">
           <span class="kicker reveal">02 — Expertise</span>
-          <h2 class="reveal-words" data-split>Tools in action.</h2>
-          <p class="reveal">Practical systems powered by industry-standard platforms.</p>
+          <h2 class="reveal-words" data-split>A systems-minded toolkit.</h2>
+          <p class="reveal">From workflow strategy to implementation and control.</p>
         </div>
         <div class="skills-grid">
           <article class="skill-card reveal spotlight">
-            <div class="skill-head"><div class="skill-icon"><img src="assets/logos/zapier-logo.svg" alt="Zapier" width="32" height="32"></div><span class="skill-index">/01</span></div>
-            <h3>AI &amp; Automation</h3><p>Connecting tools, decisions, and people.</p>
-            <div class="logo-row">
-              <img src="assets/logos/make-logo.svg" alt="Make" width="32" height="32">
-              <img src="assets/logos/n8n-logo.svg" alt="n8n" width="32" height="32">
-              <img src="assets/logos/power-automate-logo.svg" alt="Power Automate" width="32" height="32">
-              <img src="assets/logos/ai-logo.svg" alt="AI Agents" width="32" height="32">
+            <div class="skill-head"><div class="skill-icon">AI</div><span class="skill-index">/01</span></div>
+            <h3>AI &amp; Automation</h3><p>Intelligent workflows that connect tools, decisions, and people.</p>
+            <div class="chips">
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-zapier"/></svg>Zapier</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-make"/></svg>Make</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-n8n"/></svg>n8n</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-power-automate"/></svg>Power Automate</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-gemini"/></svg>Prompt Engineering</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-ai"/></svg>AI Agent Design</span>
             </div>
             <div class="skill-meter" aria-hidden="true"><i style="--w:94%"></i></div>
           </article>
           <article class="skill-card reveal spotlight">
-            <div class="skill-head"><div class="skill-icon"><img src="assets/logos/excel-logo.svg" alt="Excel" width="32" height="32"></div><span class="skill-index">/02</span></div>
-            <h3>Data &amp; Development</h3><p>Purpose-built systems for reporting and operations.</p>
-            <div class="logo-row">
-              <img src="assets/logos/sheets-logo.svg" alt="Google Sheets" width="32" height="32">
-              <img src="assets/logos/apps-script-logo.svg" alt="Apps Script" width="32" height="32">
-              <img src="assets/logos/web-apps-logo.svg" alt="Web Apps" width="32" height="32">
+            <div class="skill-head"><div class="skill-icon">{ }</div><span class="skill-index">/02</span></div>
+            <h3>Data &amp; Development</h3><p>Purpose-built systems for reporting, analysis, and daily operations.</p>
+            <div class="chips">
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-excel"/></svg>Advanced Excel</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-code"/></svg>VBA</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-sheets"/></svg>Google Sheets</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-code"/></svg>Apps Script</span>
+              <span>Web Apps</span>
+              <span>Data Visualization</span>
             </div>
             <div class="skill-meter" aria-hidden="true"><i style="--w:88%"></i></div>
           </article>
           <article class="skill-card reveal spotlight">
-            <div class="skill-head"><div class="skill-icon"><img src="assets/logos/audit-logo.svg" alt="Audit" width="32" height="32"></div><span class="skill-index">/03</span></div>
-            <h3>Business Operations</h3><p>Automation grounded in controls and compliance.</p>
-            <div class="logo-row">
-              <img src="assets/logos/quickbooks-logo.svg" alt="QuickBooks" width="32" height="32">
-              <img src="assets/logos/crm-logo.svg" alt="CRM" width="32" height="32">
+            <div class="skill-head"><div class="skill-icon">✓</div><span class="skill-index">/03</span></div>
+            <h3>Business Operations</h3><p>Automation grounded in controls, compliance, and process excellence.</p>
+            <div class="chips">
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-audit"/></svg>Operational Audit</span>
+              <span>Process Optimization</span>
+              <span>Internal Controls</span>
+              <span>Compliance</span>
+              <span>Inventory</span>
+              <span><svg class="ico" aria-hidden="true"><use href="#ico-quickbooks"/></svg>QuickBooks</span>
+              <span>CRM</span>
             </div>
             <div class="skill-meter" aria-hidden="true"><i style="--w:97%"></i></div>
           </article>
@@ -187,46 +313,119 @@
         <div class="project-head">
           <div class="section-heading">
             <span class="kicker reveal">03 — Selected work</span>
-            <h2 class="reveal-words" data-split>Results you can see.</h2>
+            <h2 class="reveal-words" data-split>Automation with measurable purpose.</h2>
+          </div>
+          <div class="filters reveal" role="group" aria-label="Filter projects">
+            <span class="filter-indicator" aria-hidden="true"></span>
+            <button class="active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="ai" aria-pressed="false">AI</button>
+            <button type="button" data-filter="workflow" aria-pressed="false">Workflow</button>
+            <button type="button" data-filter="data" aria-pressed="false">Data</button>
           </div>
         </div>
 
         <div class="project-grid">
           <article class="project-card reveal spotlight" data-category="workflow data" tabindex="0" data-project="xero" aria-label="Open case study: Asana to Xero Bank Transaction Reporting">
             <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>make.com / scenario</span></div><img class="project-thumb" src="assets/asana-xero.webp" alt="Make workflow connecting Asana, Xero, Google Sheets, routing, iteration, aggregation, and attachment handling." loading="lazy" data-fallback="flow"></div>
-            <div class="project-body"><div class="project-number">01</div><div class="project-tags"><img src="assets/logos/asana-logo.svg" alt="Asana" width="18" height="18"><img src="assets/logos/xero-logo.svg" alt="Xero" width="18" height="18"><img src="assets/logos/sheets-logo.svg" alt="Sheets" width="18" height="18"><img src="assets/logos/make-logo.svg" alt="Make" width="18" height="18"></div><h3>Asana → Xero Bank Transaction Reporting</h3><p>Captures completed Asana tasks, calls Xero, branches records, builds a report, uploads the result, and clears staging data.</p><div class="impact"><span><b>12 hrs</b> saved / month</span><span><b>$120</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+            <div class="project-body">
+              <div class="project-number">01</div>
+              <div class="project-tags">
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-make"/></svg>Make</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-asana"/></svg>Asana</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-xero"/></svg>Xero</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-sheets"/></svg>Google Sheets</span>
+              </div>
+              <h3>Asana → Xero Bank Transaction Reporting</h3>
+              <p>Captures completed Asana tasks, calls Xero, branches records, builds a report, uploads the result, and clears staging data.</p>
+              <div class="impact"><span><b>12 hrs</b> saved / month</span><span><b>$120</b> estimated / month</span></div>
+              <button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button>
+            </div>
           </article>
+
           <article class="project-card reveal spotlight" data-category="ai workflow" tabindex="0" data-project="content" aria-label="Open case study: AI Content Repurposing Engine">
             <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>zapier / zap</span></div><img class="project-thumb" src="assets/ai-content.webp" alt="Zapier workflow using Google Drive, filters, AI, loops, paths, Facebook, LinkedIn, and Instagram." loading="lazy" data-fallback="flow"></div>
-            <div class="project-body"><div class="project-number">02</div><div class="project-tags"><img src="assets/logos/zapier-logo.svg" alt="Zapier" width="18" height="18"><img src="assets/logos/drive-logo.svg" alt="Drive" width="18" height="18"><img src="assets/logos/ai-logo.svg" alt="AI" width="18" height="18"><img src="assets/logos/facebook-logo.svg" alt="Facebook" width="18" height="18"><img src="assets/logos/linkedin-logo.svg" alt="LinkedIn" width="18" height="18"><img src="assets/logos/instagram-logo.svg" alt="Instagram" width="18" height="18"></div><h3>AI Content Repurposing Engine</h3><p>Turns new source files into multiple AI-assisted posts and routes outputs to Facebook, LinkedIn, and Instagram.</p><div class="impact"><span><b>18 hrs</b> saved / month</span><span><b>$180</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+            <div class="project-body">
+              <div class="project-number">02</div>
+              <div class="project-tags">
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-zapier"/></svg>Zapier</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-drive"/></svg>Google Drive</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-ai"/></svg>AI</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-social"/></svg>Social Media</span>
+              </div>
+              <h3>AI Content Repurposing Engine</h3>
+              <p>Turns new source files into multiple AI-assisted posts, loops through outputs, and routes content to social channels.</p>
+              <div class="impact"><span><b>18 hrs</b> saved / month</span><span><b>$180</b> estimated / month</span></div>
+              <button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button>
+            </div>
           </article>
+
           <article class="project-card reveal spotlight" data-category="workflow" tabindex="0" data-project="leads" aria-label="Open case study: Asana Lead Pipeline Automation">
             <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>zapier / zap</span></div><img class="project-thumb" src="assets/asana-leads.webp" alt="Zapier lead pipeline with five Asana stages, email follow-ups, delays, AI content, and Google Drive actions." loading="lazy" data-fallback="flow"></div>
-            <div class="project-body"><div class="project-number">03</div><div class="project-tags"><img src="assets/logos/asana-logo.svg" alt="Asana" width="18" height="18"><img src="assets/logos/zapier-logo.svg" alt="Zapier" width="18" height="18"><img src="assets/logos/gmail-logo.svg" alt="Gmail" width="18" height="18"><img src="assets/logos/drive-logo.svg" alt="Drive" width="18" height="18"></div><h3>Asana Lead Pipeline Automation</h3><p>Routes five lead stages through folder creation, reminders, quotations, approval onboarding, and close-out messaging.</p><div class="impact"><span><b>15 hrs</b> saved / month</span><span><b>$150</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+            <div class="project-body">
+              <div class="project-number">03</div>
+              <div class="project-tags">
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-zapier"/></svg>Zapier</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-asana"/></svg>Asana</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-gmail"/></svg>Gmail</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-drive"/></svg>Google Drive</span>
+              </div>
+              <h3>Asana Lead Pipeline Automation</h3>
+              <p>Routes five lead stages through folder creation, reminders, quotations, approval onboarding, and close-out messaging.</p>
+              <div class="impact"><span><b>15 hrs</b> saved / month</span><span><b>$150</b> estimated / month</span></div>
+              <button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button>
+            </div>
           </article>
+
           <article class="project-card reveal spotlight" data-category="ai workflow" tabindex="0" data-project="video" aria-label="Open case study: AI Video Creation and Publishing">
             <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>n8n / workflow</span></div><img class="project-thumb" src="assets/ai-video.webp" alt="n8n AI video workflow covering prompt generation, JWT authentication, video creation, monitoring, conversion, and publishing." loading="lazy" data-fallback="flow"></div>
-            <div class="project-body"><div class="project-number">04</div><div class="project-tags"><img src="assets/logos/n8n-logo.svg" alt="n8n" width="18" height="18"><img src="assets/logos/gemini-logo.svg" alt="Gemini" width="18" height="18"><img src="assets/logos/youtube-logo.svg" alt="YouTube" width="18" height="18"><img src="assets/logos/facebook-logo.svg" alt="Facebook" width="18" height="18"></div><h3>AI Video Creation &amp; Publishing</h3><p>Generates structured prompts, authenticates by JWT, creates and monitors videos, converts files, and publishes to two platforms.</p><div class="impact"><span><b>24 hrs</b> saved / month</span><span><b>$240</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+            <div class="project-body">
+              <div class="project-number">04</div>
+              <div class="project-tags">
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-n8n"/></svg>n8n</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-gemini"/></svg>Gemini</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-youtube"/></svg>YouTube</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-facebook"/></svg>Facebook</span>
+              </div>
+              <h3>AI Video Creation &amp; Publishing</h3>
+              <p>Generates structured prompts, authenticates by JWT, creates and monitors videos, converts files, and publishes to two platforms.</p>
+              <div class="impact"><span><b>24 hrs</b> saved / month</span><span><b>$240</b> estimated / month</span></div>
+              <button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button>
+            </div>
           </article>
+
           <article class="project-card reveal spotlight" data-category="ai workflow data" tabindex="0" data-project="docs" aria-label="Open case study: Automated Attachment Renaming and Filing">
-            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>make.com / scenario</span></div><img class="project-thumb" src="assets/attachment-filing.webp" alt="Make workflow from Gmail attachment intake through AI naming, Drive upload, Sheets logging, aggregation, and confirmation." loading="lazy" data-fallback="flow"></div>
-            <div class="project-body"><div class="project-number">05</div><div class="project-tags"><img src="assets/logos/gmail-logo.svg" alt="Gmail" width="18" height="18"><img src="assets/logos/ai-logo.svg" alt="AI" width="18" height="18"><img src="assets/logos/drive-logo.svg" alt="Drive" width="18" height="18"><img src="assets/logos/sheets-logo.svg" alt="Sheets" width="18" height="18"><img src="assets/logos/make-logo.svg" alt="Make" width="18" height="18"></div><h3>Automated Attachment Renaming &amp; Filing</h3><p>Collects email attachments, analyzes content, generates standardized names, files documents, logs records, and sends confirmation.</p><div class="impact"><span><b>8 hrs</b> saved / month</span><span><b>$80</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+            <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>make.com / scenario</span></div><img class="project-thumb" src="assets/attachment-filing.webp" alt="Make workflow watching Gmail attachments, analyzing files with AI, generating names, uploading to Drive, and logging to Sheets." loading="lazy" data-fallback="flow"></div>
+            <div class="project-body">
+              <div class="project-number">05</div>
+              <div class="project-tags">
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-make"/></svg>Make</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-gmail"/></svg>Gmail</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-ai"/></svg>AI</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-drive"/></svg>Google Drive</span>
+              </div>
+              <h3>Automated Attachment Renaming &amp; Filing</h3>
+              <p>Collects email attachments, analyzes content, generates standardized names, files documents, logs records, and sends confirmation.</p>
+              <div class="impact"><span><b>8 hrs</b> saved / month</span><span><b>$80</b> estimated / month</span></div>
+              <button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button>
+            </div>
           </article>
+
           <article class="project-card reveal spotlight" data-category="ai data" tabindex="0" data-project="rag" aria-label="Open case study: Basic RAG Knowledge Pipeline">
             <div class="project-media"><div class="window-bar"><i></i><i></i><i></i><span>n8n / workflow</span></div><img class="project-thumb" src="assets/rag-agent.webp" alt="n8n RAG workflow ingesting Google Drive files, generating Gemini embeddings, storing vectors in Supabase, and cleaning deleted records." loading="lazy" data-fallback="flow"></div>
-            <div class="project-body"><div class="project-number">06</div><div class="project-tags"><img src="assets/logos/n8n-logo.svg" alt="n8n" width="18" height="18"><img src="assets/logos/drive-logo.svg" alt="Drive" width="18" height="18"><img src="assets/logos/gemini-logo.svg" alt="Gemini" width="18" height="18"><img src="assets/logos/supabase-logo.svg" alt="Supabase" width="18" height="18"></div><h3>Basic RAG Knowledge Pipeline</h3><p>Ingests Drive files, creates Gemini embeddings, stores them in Supabase Vector Store, and cleans up deleted source records.</p><div class="impact"><span><b>10 hrs</b> saved / month</span><span><b>$100</b> estimated / month</span></div><button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button></div>
+            <div class="project-body">
+              <div class="project-number">06</div>
+              <div class="project-tags">
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-n8n"/></svg>n8n</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-gemini"/></svg>Gemini</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-supabase"/></svg>Supabase</span>
+                <span><svg class="ico" aria-hidden="true"><use href="#ico-rag"/></svg>RAG</span>
+              </div>
+              <h3>Basic RAG Knowledge Pipeline</h3>
+              <p>Ingests Drive files, creates Gemini embeddings, stores them in Supabase Vector Store, and cleans up deleted source records.</p>
+              <div class="impact"><span><b>10 hrs</b> saved / month</span><span><b>$100</b> estimated / month</span></div>
+              <button class="text-link" type="button" tabindex="-1">Explore workflow <span>↗</span></button>
+            </div>
           </article>
-        </div>
-
-        <!-- ================= ATTACHED FILTERS ================= -->
-        <div class="filters-section reveal">
-          <div class="filters">
-            <button data-filter="all" class="active">All</button>
-            <button data-filter="workflow data">Workflow Data</button>
-            <button data-filter="ai workflow">AI Workflow</button>
-            <button data-filter="workflow">Workflow</button>
-            <button data-filter="ai data">AI Data</button>
-          </div>
         </div>
 
         <div class="portfolio-impact reveal">
@@ -242,7 +441,7 @@
     <section class="section experience" id="experience">
       <div class="container split-grid">
         <div class="section-heading sticky-heading">
-          <span class="kicker reveal">05 — Experience</span>
+          <span class="kicker reveal">04 — Experience</span>
           <h2 class="reveal-words" data-split>Built on controls. Focused on impact.</h2>
           <p class="reveal">A career progression from evaluating systems to architecting better ones.</p>
         </div>
@@ -259,11 +458,15 @@
     <section class="section credentials">
       <div class="container">
         <div class="section-heading center-heading">
-          <span class="kicker reveal">06 — Credentials</span>
+          <span class="kicker reveal">05 — Credentials</span>
           <h2 class="reveal-words" data-split>Continuous learning, practical application.</h2>
         </div>
         <div class="credential-row">
-          <span class="reveal"><i aria-hidden="true">✦</i>Zapier</span><span class="reveal"><i aria-hidden="true">✦</i>Make</span><span class="reveal"><i aria-hidden="true">✦</i>n8n</span><span class="reveal"><i aria-hidden="true">✦</i>GoHighLevel</span><span class="reveal"><i aria-hidden="true">✦</i>AI Prompt Engineering</span>
+          <span class="reveal"><svg class="ico" aria-hidden="true"><use href="#ico-zapier"/></svg>Zapier</span>
+          <span class="reveal"><svg class="ico" aria-hidden="true"><use href="#ico-make"/></svg>Make</span>
+          <span class="reveal"><svg class="ico" aria-hidden="true"><use href="#ico-n8n"/></svg>n8n</span>
+          <span class="reveal"><svg class="ico" aria-hidden="true"><use href="#ico-ghl"/></svg>GoHighLevel</span>
+          <span class="reveal"><svg class="ico" aria-hidden="true"><use href="#ico-ai"/></svg>AI Prompt Engineering</span>
         </div>
       </div>
     </section>
@@ -279,8 +482,8 @@
             <p>Tell me where the friction is, and I’ll help design a practical automation that saves time, improves consistency, and supports the way your business works.</p>
           </div>
           <div class="contact-actions">
-            <a class="btn btn-light contact-cta" href="mailto:angelo.deocampo@yahoo.com?subject=Automation%20Project%20Inquiry" data-magnetic><span class="btn-text">Start Your Automation Project</span><span class="btn-icon" aria-hidden="true">↗</span></a>
-            <a class="contact-email" href="mailto:angelo.deocampo@yahoo.com">angelo.deocampo@yahoo.com</a>
+            <a class="btn btn-light contact-cta" href="/cdn-cgi/l/email-protection#2a4b444d4f4645044e4f45494b475a456a534b4245450449454715595f48404f495e176b5f5e45474b5e4345440f181a7a5845404f495e0f181a63445b5f435853" data-magnetic><span class="btn-text">Start Your Automation Project</span><span class="btn-icon" aria-hidden="true">↗</span></a>
+            <a class="contact-email" href="/cdn-cgi/l/email-protection#8feee1e8eae3e0a1ebeae0eceee2ffe0cff6eee7e0e0a1ece0e2"><span class="__cf_email__" data-cfemail="4c2d222b292023622829232f2d213c230c352d242323622f2321">[email&#160;protected]</span></a>
             <div class="contact-row">
               <button class="copy-btn" type="button" data-copy="angelo.deocampo@yahoo.com"><span>Copy email</span></button>
               <a class="social-link" href="https://github.com/darkgambit" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
@@ -313,11 +516,11 @@
       <div class="modal-grid"><div><small>Challenge</small><p id="modal-challenge"></p></div><div><small>Solution</small><p id="modal-solution"></p></div><div><small>Value</small><p id="modal-value"></p></div></div>
       <div class="modal-foot">
         <div class="modal-note" id="modal-note">Impact figures are modeled estimates rather than audited client results. Detailed implementation credentials remain private.</div>
-        <div class="modal-nav"><button type="button" class="modal-prev" aria-label="Previous case study">←</button><button type="button" class="modal-next" aria-label="Next case study">+</button></div>
+        <div class="modal-nav"><button type="button" class="modal-prev" aria-label="Previous case study">←</button><button type="button" class="modal-next" aria-label="Next case study">→</button></div>
       </div>
     </div>
   </dialog>
   <div class="toast" role="status" aria-live="polite"><span class="toast-icon" aria-hidden="true">✓</span> Email copied</div>
-  <script src="script.js"></script>
-</body>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5833c618adc2770',t:'MTc5NDI5NDYxMA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5833c618adc2770',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
