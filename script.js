@@ -5,6 +5,8 @@
 (() => {
   'use strict';
 
+  window.__PORTFOLIO_JS_V = '20261110-v3';
+
   /* Optional: After your first test submission, FormSubmit emails you an
      activation link + a random anonymous string. You can optionally paste
      that random string (or any n8n / Make / Apps Script webhook URL) here. */
@@ -20,7 +22,7 @@
   /* ---------------------------------------------------------
      1. Calm Hero Rotator + Live Pipeline Ticker
   --------------------------------------------------------- */
-  const rotItems = $$('.rot-item');
+  const rotItems = $$('.hero-rot-word');
   if (rotItems.length > 1 && !reduceMotion) {
     let ri = 0;
     setInterval(() => {
@@ -319,7 +321,7 @@
     if (img.dataset.failed) return;
     img.dataset.failed = '1';
     if (img.dataset.fallback === 'portrait') {
-      img.closest('.portrait-frame')?.classList.add('is-fallback');
+      img.closest('.hero-photo-box')?.classList.add('is-fallback');
     } else {
       const tags = tagsFor(img);
       const seed = [...(img.getAttribute('src') || 'x')].reduce((a, ch) => a + ch.charCodeAt(0), 0);
