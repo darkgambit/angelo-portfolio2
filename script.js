@@ -14,7 +14,7 @@
      - Optional: After activating, you can paste the random FormSubmit alias
        token OR a free Web3Forms UUID key (https://app.web3forms.com) here.
      ======================================================================= */
-  const ENDPOINT_KEY_OR_ALIAS = '';
+  const ENDPOINT_KEY_OR_ALIAS = 'a6e5bed9-bdfd-4af5-8345-5d16ec1a855b';
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
