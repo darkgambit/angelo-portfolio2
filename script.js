@@ -14,7 +14,7 @@
   const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
   const lerp = (a, b, t) => a + (b - a) * t;
 
-  /* ---------------------------------------------------------\
+  /* ---------------------------------------------------------
      1. Split text into animatable words
   --------------------------------------------------------- */
   function splitWords(el, wordClass = 'w', innerClass = 'wi') {
@@ -45,6 +45,7 @@
     walk(el);
     return i;
   }
+
   // Hero lines share a continuous stagger index
   let heroIndex = 0;
   $$('.hero .h1-line[data-split]').forEach(line => {
@@ -62,7 +63,10 @@
     scrubWords = $$('.sw', scrubEl);
   }
 
-  /* ---------------------------------------------------------\
+  // Chip stagger indices
+  $$('.chips').forEach(group => $$('span', group).forEach((c, i) => c.style.setProperty('--ci', i)));
+
+  /* ---------------------------------------------------------
      2. Loader → page ready
   --------------------------------------------------------- */
   const loader = $('.loader');
@@ -87,7 +91,7 @@
       // Ease to 90% on time; finish once window load fires (or after a safety cap)
       const t = clamp((now - start) / duration, 0, 1);
       const eased = 1 - Math.pow(1 - t, 3);
-      const canFinish = pageLoaded || now - start > 3500;
+      const canFinish = pageLoaded || now - start > 2200;
       const p = canFinish ? eased : Math.min(eased, .9);
       countEl.textContent = Math.round(p * 100);
       bar.style.transform = `scaleX(${p})`;
@@ -103,7 +107,7 @@
     requestAnimationFrame(step);
   }
 
-  /* ---------------------------------------------------------\
+  /* ---------------------------------------------------------
      3. Rotating hero words + live run ticker
   --------------------------------------------------------- */
   let rotatorStarted = false;
@@ -126,7 +130,14 @@
     }
     const live = $('.live-text');
     if (live && !reduceMotion) {
-      const feed = ['Asana → Xero report synced', 'RAG index: 42 vectors added', 'Lead stage → Quoted', '3 attachments filed', 'Video published · YouTube', 'Posts routed to LinkedIn'];
+      const feed = [
+        'Asana → Xero report synced',
+        'RAG index: 42 vectors added',
+        'Lead stage → Quoted',
+        '3 attachments filed',
+        'Video published · YouTube',
+        'Posts routed to LinkedIn'
+      ];
       let li = 0;
       setInterval(() => {
         live.classList.add('out');
@@ -142,13 +153,13 @@
     }
   }
 
-  /* ---------------------------------------------------------\
+  /* ---------------------------------------------------------
      4. Hero canvas — live automation network
   --------------------------------------------------------- */
   const canvas = $('.hero-canvas');
   if (canvas && canvas.getContext) {
     const ctx = canvas.getContext('2d');
-    let w = 0, h = 0, dpr = 1, nodes = [], packets = [], running = true, visible = true, raf = 0;
+    let w = 0, h = 0, dpr = 1, nodes = [], packets = [], running = true, visible = true;
     const mouse = { x: -9999, y: -9999, active: false };
     let colA = '86,227,193', colB = '107,168,255', lineAlpha = .14;
 
@@ -173,7 +184,7 @@
       packets = [];
     };
     const LINK = 150;
-    const neighbours = (n) => {
+    const neighbours = n => {
       const list = [];
       for (const m of nodes) {
         if (m === n) continue;
@@ -182,7 +193,8 @@
       }
       return list;
     };
-    const spawnPacket = (from) => {
+    const spawnPacket = from => {
+      if (!nodes.length) return;
       const a = from || nodes[(Math.random() * nodes.length) | 0];
       const ns = neighbours(a);
       if (!ns.length) return;
@@ -192,7 +204,6 @@
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      // Move nodes
       for (const n of nodes) {
         n.x += n.vx; n.y += n.vy;
         if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
@@ -202,7 +213,6 @@
           if (d < 200 && d > 1) { n.x += dx / d * .25; n.y += dy / d * .25; }
         }
       }
-      // Edges
       ctx.lineWidth = 1;
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];
@@ -224,7 +234,6 @@
           }
         }
       }
-      // Nodes
       for (const n of nodes) {
         ctx.fillStyle = `rgba(${n.hub ? colB : colA},${n.hub ? .9 : .55})`;
         ctx.beginPath(); ctx.arc(n.x, n.y, n.hub ? n.r + 1.2 : n.r, 0, Math.PI * 2); ctx.fill();
@@ -233,7 +242,6 @@
           ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 6, 0, Math.PI * 2); ctx.stroke();
         }
       }
-      // Packets — data flowing hop to hop like a workflow run
       if (packets.length < Math.min(14, nodes.length / 4) && Math.random() < .06) spawnPacket();
       for (let i = packets.length - 1; i >= 0; i--) {
         const p = packets[i];
@@ -259,23 +267,72 @@
     };
     const loop = () => {
       if (running && visible) draw();
-      raf = requestAnimationFrame(loop);
+      requestAnimationFrame(loop);
     };
 
     readColors(); resize();
-    if (reduceMotion) { draw(); }
-    else { loop(); }
-    let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { resize(); if (reduceMotion) draw(); }, 150); });
+    if (reduceMotion) { draw(); } else { loop(); }
+    let rt;
+    addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { resize(); if (reduceMotion) draw(); }, 150); });
     new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(canvas);
     document.addEventListener('visibilitychange', () => { running = !document.hidden; });
     const hero = $('.hero');
-    hero.addEventListener('pointermove', e => { const r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.active = true; });
+    hero.addEventListener('pointermove', e => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.active = true;
+    });
     hero.addEventListener('pointerleave', () => { mouse.active = false; });
     window.__refreshCanvasColors = () => { readColors(); if (reduceMotion) draw(); };
   }
 
-  /* ---------------------------------------------------------\
-     5. Header, progress bar, scroll-driven effects
+  /* ---------------------------------------------------------
+     5. Navigation: mobile menu, scrollspy, sliding indicator
+  --------------------------------------------------------- */
+  const menu = $('.menu-toggle');
+  const nav = $('.nav-links');
+  const indicator = $('.nav-indicator');
+  const links = $$('.nav-links a');
+  const setMenu = open => {
+    nav.classList.toggle('open', open);
+    menu.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  };
+  menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  links.forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menu.focus(); } });
+  document.addEventListener('click', e => { if (nav.classList.contains('open') && !nav.contains(e.target) && !menu.contains(e.target)) setMenu(false); });
+
+  const moveIndicator = el => {
+    if (!indicator) return;
+    if (!el) { indicator.style.opacity = '0'; return; }
+    indicator.style.opacity = '1';
+    indicator.style.width = el.offsetWidth + 'px';
+    indicator.style.transform = `translateX(${el.offsetLeft}px)`;
+  };
+  const sections = $$('main section[id]');
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      let activeLink = null;
+      links.forEach(a => {
+        const on = a.getAttribute('href') === '#' + e.target.id;
+        a.classList.toggle('active', on);
+        if (on) activeLink = a;
+      });
+      moveIndicator(activeLink);
+    });
+  }, { rootMargin: '-40% 0px -55%' });
+  sections.forEach(s => spy.observe(s));
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && e.intersectionRatio > .5) {
+      links.forEach(a => a.classList.remove('active'));
+      moveIndicator(null);
+    }
+  }, { threshold: [.5] }).observe($('.hero'));
+  addEventListener('resize', () => moveIndicator($('.nav-links a.active')));
+
+  /* ---------------------------------------------------------
+     6. Header, progress bar, scroll-driven effects
   --------------------------------------------------------- */
   const header = $('.site-header');
   const progress = $('.scroll-progress i');
@@ -314,49 +371,7 @@
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
 
-  /* ---------------------------------------------------------\
-     6. Navigation: mobile menu, scrollspy, sliding indicator
-  --------------------------------------------------------- */
-  const menu = $('.menu-toggle');
-  const nav = $('.nav-links');
-  const indicator = $('.nav-indicator');
-  const links = $$('.nav-links a');
-  const setMenu = open => {
-    nav.classList.toggle('open', open);
-    menu.setAttribute('aria-expanded', String(open));
-    menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-  };
-  menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
-  links.forEach(a => a.addEventListener('click', () => setMenu(false)));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); menu.focus(); } });
-  document.addEventListener('click', e => { if (nav.classList.contains('open') && !nav.contains(e.target) && !menu.contains(e.target)) setMenu(false); });
-
-  const moveIndicator = el => {
-    if (!indicator) return;
-    if (!el) { indicator.style.opacity = '0'; return; }
-    indicator.style.opacity = '1';
-    indicator.style.width = el.offsetWidth + 'px';
-    indicator.style.transform = `translateX(${el.offsetLeft}px)`;
-  };
-  const sections = $$('main section[id]');
-  const spy = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      let activeLink = null;
-      links.forEach(a => {
-        const on = a.getAttribute('href') === '#' + e.target.id;
-        a.classList.toggle('active', on);
-        if (on) activeLink = a;
-      });
-      moveIndicator(activeLink);
-    });
-  }, { rootMargin: '-40% 0px -55%' });
-  sections.forEach(s => spy.observe(s));
-  // Hide indicator when back in hero
-  new IntersectionObserver(([e]) => { if (e.isIntersecting && e.intersectionRatio > .5) { links.forEach(a => a.classList.remove('active')); moveIndicator(null); } }, { threshold: [.5] }).observe($('.hero'));
-  addEventListener('resize', () => moveIndicator($('.nav-links a.active')));
-
-  /* ---------------------------------------------------------\
+  /* ---------------------------------------------------------
      7. Reveal on scroll (auto-stagger siblings)
   --------------------------------------------------------- */
   const revealEls = $$('.reveal, .reveal-words');
@@ -371,7 +386,7 @@
   }, { threshold: .14, rootMargin: '0px 0px -6% 0px' });
   revealEls.forEach(el => revealObs.observe(el));
 
-  /* ---------------------------------------------------------\
+  /* ---------------------------------------------------------
      8. Count-up numbers
   --------------------------------------------------------- */
   const fmt = n => n.toLocaleString('en-US');
@@ -390,7 +405,7 @@
   }), { threshold: .6 });
   $$('[data-count]').forEach(c => countObs.observe(c));
 
-  /* ---------------------------------------------------------\
+  /* ---------------------------------------------------------
      9. Pointer effects: cursor, magnetic, spotlight, tilt
   --------------------------------------------------------- */
   if (finePointer && !reduceMotion) {
@@ -413,7 +428,7 @@
     document.addEventListener('pointerover', e => {
       const t = e.target;
       const view = t.closest('.project-card');
-      const hov = t.closest('a, button, [data-magnetic], .chips span, .credential-row span, .logo-row img');
+      const hov = t.closest('a, button, [data-magnetic], .chips span, .credential-row span');
       body.classList.toggle('cursor-view', !!view);
       body.classList.toggle('cursor-hover', !view && !!hov);
     });
@@ -444,6 +459,7 @@
       stage.addEventListener('pointerleave', () => { el.style.transform = ''; });
     });
   }
+
   // Spotlight works for any pointer
   $$('.spotlight').forEach(el => {
     el.addEventListener('pointermove', e => {
@@ -453,17 +469,14 @@
     });
   });
 
-  /* ---------------------------------------------------------\
+  /* ---------------------------------------------------------
      10. Image fallbacks (portrait monogram + generated workflow art)
   --------------------------------------------------------- */
-  const svgNS = 'http://www.w3.org/2000/svg';
   function flowSVG(labels, seed = 1) {
-    let s = seed;
-    const rand = () => (s = (s * 9301 + 49297) % 233280) / 233280;
-    const W = 640, H = 300;
-    const svg = document.createElementNS(svgNS, 'svg');
+    const W = 560, H = 310;
+    const rand = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
     svg.setAttribute('class', 'flow-fallback');
     svg.setAttribute('aria-hidden', 'true');
     let html = '';
@@ -491,13 +504,11 @@
     svg.innerHTML = html;
     return svg;
   }
+
   const tagsFor = el => {
     const card = el.closest('.project-card');
-    if (card) return [
-      ...$$('.project-tags span', card).map(s => s.textContent),
-      ...$$('.project-tags img', card).map(i => i.alt)
-    ].filter(Boolean);
-    return ($$('#modal-tags span').map(s => s.textContent));
+    if (card) return $$('.project-tags span', card).map(s => s.textContent.trim()).filter(Boolean);
+    return $$('#modal-tags span').map(s => s.textContent.trim()).filter(Boolean);
   };
   const applyFallback = img => {
     if (img.dataset.failed) return;
@@ -517,17 +528,130 @@
     if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) applyFallback(img);
   });
 
-  /* ---------------------------------------------------------\
-     11. Case-study modal with prev / next
+  /* ---------------------------------------------------------
+     11. Project filters with FLIP animation
+  --------------------------------------------------------- */
+  const filterWrap = $('.filters');
+  const filters = $$('.filters button');
+  const filterInd = $('.filter-indicator');
+  const cards = $$('.project-card');
+  const placeFilterInd = () => {
+    const a = $('.filters button.active');
+    if (!a || !filterInd) return;
+    filterInd.style.width = a.offsetWidth + 'px';
+    filterInd.style.transform = `translateX(${a.offsetLeft}px)`;
+  };
+  placeFilterInd();
+  addEventListener('resize', placeFilterInd);
+  if (filterWrap && window.ResizeObserver) new ResizeObserver(placeFilterInd).observe(filterWrap);
+  document.fonts && document.fonts.ready.then(placeFilterInd);
+
+  let filtering = false;
+  filters.forEach(btn => btn.addEventListener('click', async () => {
+    if (filtering || btn.classList.contains('active')) return;
+    filtering = true;
+    filters.forEach(b => {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', String(b === btn));
+    });
+    placeFilterInd();
+    const f = btn.dataset.filter;
+    const match = c => f === 'all' || c.dataset.category.split(' ').includes(f);
+    const leaving = cards.filter(c => !match(c) && !c.classList.contains('hidden'));
+    const entering = cards.filter(c => match(c) && c.classList.contains('hidden'));
+    const staying = cards.filter(c => match(c) && !c.classList.contains('hidden'));
+
+    if (reduceMotion) {
+      leaving.forEach(c => c.classList.add('hidden'));
+      entering.forEach(c => { c.classList.remove('hidden'); c.classList.add('visible'); });
+      filtering = false;
+      return;
+    }
+    const first = new Map(staying.map(c => [c, c.getBoundingClientRect()]));
+    await Promise.all(leaving.map(c => c.animate(
+      [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.94)' }],
+      { duration: 260, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' }
+    ).finished));
+    leaving.forEach(c => { c.classList.add('hidden'); c.getAnimations().forEach(a => a.cancel()); });
+    entering.forEach(c => { c.classList.remove('hidden'); c.classList.add('visible'); });
+    staying.forEach(c => {
+      const a = first.get(c), b = c.getBoundingClientRect();
+      const dx = a.left - b.left, dy = a.top - b.top;
+      if (dx || dy) c.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: 'none' }], { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' });
+    });
+    entering.forEach((c, i) => c.animate(
+      [{ opacity: 0, transform: 'translateY(30px) scale(.96)' }, { opacity: 1, transform: 'none' }],
+      { duration: 650, delay: 80 + i * 70, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
+    ));
+    setTimeout(() => { filtering = false; }, 300);
+  }));
+
+  /* ---------------------------------------------------------
+     12. Case-study modal with prev / next
   --------------------------------------------------------- */
   const cases = {
-    xero: { title: 'Asana → Xero Bank Transaction Reporting', image: 'assets/asana-xero.webp', alt: 'Make workflow connecting Asana, Xero, Google Sheets, routing, iteration, aggregation, and attachment actions.', summary: 'A Make scenario that turns completed Asana work into a structured bank-transaction report and returns the final output to the task.', challenge: 'Manual retrieval, formatting, attachment preparation, and staging-sheet cleanup can create delays and reconciliation risk.', solution: 'The workflow watches completed tasks, calls Xero, routes records, iterates and aggregates data, adds rows to Sheets, uploads the report to Asana, then clears the staging range.', value: 'Estimated 12 hours and $120 in labor saved monthly under moderate usage.' },
-    content: { title: 'AI Content Repurposing Engine', image: 'assets/ai-content.webp', alt: 'Zapier workflow with Google Drive, filters, AI generation, loops, paths, and social publishing actions.', summary: 'A Zapier workflow that converts source files into multiple AI-assisted posts and routes outputs to Facebook, LinkedIn, and Instagram.', challenge: 'Rewriting one asset into multiple platform formats is repetitive and creates inconsistent publishing cadence.', solution: 'A Zapier path triggers Drive organization, filters, AI steps, loops through outputs, and uses platform-specific actions.', value: 'Estimated 18 hours and $180 in labor saved monthly, excluding review and platform fees.' },
-    leads: { title: 'Asana Lead Pipeline Automation', image: 'assets/asana-leads.webp', alt: 'Zapier lead pipeline with five Asana stages and branched follow-up, quotation, approval, and closing actions.', summary: 'A five-stage Asana lead system covering Ready to Start, No Response, Quoted, Approved, and Paid and Closed.', challenge: 'Manual follow-ups, folder setup, quote reminders, and onboarding messages can cause missed opportunities.', solution: 'Zapier paths trigger Drive organization, scheduled Gmail follow-ups, filters, AI-assisted messages, welcome emails, and stage-specific actions.', value: 'Estimated 15 hours and $150 in labor saved monthly while improving follow-up consistency.' },
-    video: { title: 'AI Video Creation & Publishing', image: 'assets/ai-video.webp', alt: 'n8n AI video workflow from prompt generation and JWT authentication through publishing.', summary: 'An end-to-end n8n workflow that creates AI-assisted videos and publishes them to YouTube and Facebook.', challenge: 'Prompting, authentication, generation monitoring, file conversion, and multi-platform publishing require repeated coordination.', solution: 'The workflow schedules prompt generation with Gemini, signs a JWT, calls an external video API, checks status and errors, converts Base64 output, and publishes to both platforms.', value: 'Estimated 24 hours and $240 in labor saved monthly; API generation charges are not included.' },
-    docs: { title: 'Automated Attachment Renaming & Filing', image: 'assets/attachment-filing.webp', alt: 'Make workflow from Gmail attachment intake through AI naming, Drive upload, Sheets logging, aggregation, and confirmation.', summary: 'A document-control scenario that standardizes incoming email attachments and records each processed file.', challenge: 'Manual download, interpretation, naming, filing, logging, and confirmation are slow and prone to inconsistency.', solution: 'Make watches Gmail, lists attachments, analyzes each file with AI, creates a standardized filename, uploads to Drive, logs it in Sheets, aggregates text, and sends confirmation.', value: 'Estimated 8 hours and $80 in labor saved monthly with stronger naming consistency.' },
-    rag: { title: 'Basic RAG Knowledge Pipeline', image: 'assets/rag-agent.webp', alt: 'n8n RAG pipeline using Google Drive, Gemini embeddings, Supabase Vector Store, and automatic cleanup.', summary: 'A basic retrieval-augmented-generation data pipeline that keeps a vector knowledge store synchronized with Google Drive.', challenge: 'Knowledge files need repeatable ingestion, embedding, storage, and deletion handling before an AI agent can retrieve them reliably.', solution: 'Drive events trigger downloads, Gemini creates embeddings, Supabase stores vectors through a data loader, and deletion events remove stale records.', value: 'Estimated 10 hours and $100 in labor saved monthly for recurring knowledge-base maintenance.' }
+    xero: {
+      title: 'Asana → Xero Bank Transaction Reporting',
+      image: 'assets/asana-xero.webp',
+      bg: '#f0f0f0',
+      alt: 'Make workflow connecting Asana, Xero, Google Sheets, routing, iteration, aggregation, and attachment actions.',
+      summary: 'A Make scenario that turns completed Asana work into a structured bank-transaction report and returns the final output to the task.',
+      challenge: 'Manual retrieval, formatting, attachment preparation, and staging-sheet cleanup can create delays and reconciliation risk.',
+      solution: 'The workflow watches completed tasks, calls Xero, routes records, iterates and aggregates data, adds rows to Sheets, uploads the report to Asana, then clears the staging range.',
+      value: 'Estimated 12 hours and $120 in labor saved monthly under moderate usage.'
+    },
+    content: {
+      title: 'AI Content Repurposing Engine',
+      image: 'assets/ai-content.webp',
+      bg: '#fbfbfa',
+      alt: 'Zapier workflow with Google Drive, filters, AI generation, loops, paths, and social publishing actions.',
+      summary: 'A Zapier workflow that converts source files into multiple AI-assisted posts and routes outputs to Facebook, LinkedIn, and Instagram.',
+      challenge: 'Rewriting one asset into multiple platform formats is repetitive and creates inconsistent publishing cadence.',
+      solution: 'A Drive trigger passes qualifying files to AI steps, generates multiple posts, loops through outputs, and uses paths for platform-specific actions.',
+      value: 'Estimated 18 hours and $180 in labor saved monthly, excluding review and platform fees.'
+    },
+    leads: {
+      title: 'Asana Lead Pipeline Automation',
+      image: 'assets/asana-leads.webp',
+      bg: '#f7f7f7',
+      alt: 'Zapier lead pipeline with five Asana stages and branched follow-up, quotation, approval, and closing actions.',
+      summary: 'A five-stage Asana lead system covering Ready to Start, No Response, Quoted, Approved, and Paid and Closed.',
+      challenge: 'Manual follow-ups, folder setup, quote reminders, and onboarding messages can cause missed opportunities.',
+      solution: 'Zapier paths trigger Drive organization, scheduled Gmail follow-ups, filters, AI-assisted messages, welcome emails, and stage-specific actions.',
+      value: 'Estimated 15 hours and $150 in labor saved monthly while improving follow-up consistency.'
+    },
+    video: {
+      title: 'AI Video Creation & Publishing',
+      image: 'assets/ai-video.webp',
+      bg: '#080e16',
+      alt: 'n8n AI video workflow from prompt generation and JWT authentication through publishing.',
+      summary: 'An end-to-end n8n workflow that creates AI-assisted videos and publishes them to YouTube and Facebook.',
+      challenge: 'Prompting, authentication, generation monitoring, file conversion, and multi-platform publishing require repeated coordination.',
+      solution: 'The workflow schedules prompt generation with Gemini, signs a JWT, calls an external video API, checks status and errors, converts Base64 output, and publishes to both platforms.',
+      value: 'Estimated 24 hours and $240 in labor saved monthly; API generation charges are not included.'
+    },
+    docs: {
+      title: 'Automated Attachment Renaming & Filing',
+      image: 'assets/attachment-filing.webp',
+      bg: '#f0f0f0',
+      alt: 'Make workflow from Gmail attachment intake through AI naming, Drive upload, Sheets logging, aggregation, and confirmation.',
+      summary: 'A document-control scenario that standardizes incoming email attachments and records each processed file.',
+      challenge: 'Manual download, interpretation, naming, filing, logging, and confirmation are slow and prone to inconsistency.',
+      solution: 'Make watches Gmail, lists attachments, analyzes each file with AI, creates a standardized filename, uploads to Drive, logs it in Sheets, aggregates text, and sends a confirmation email.',
+      value: 'Estimated 8 hours and $80 in labor saved monthly with stronger naming consistency.'
+    },
+    rag: {
+      title: 'Basic RAG Knowledge Pipeline',
+      image: 'assets/rag-agent.webp',
+      bg: '#0f1112',
+      alt: 'n8n RAG pipeline using Google Drive, Gemini embeddings, Supabase Vector Store, and automatic cleanup.',
+      summary: 'A basic retrieval-augmented-generation data pipeline that keeps a vector knowledge store synchronized with Google Drive.',
+      challenge: 'Knowledge files need repeatable ingestion, embedding, storage, and deletion handling before an AI agent can retrieve them reliably.',
+      solution: 'Drive events trigger downloads, Gemini creates embeddings, Supabase stores vectors through a data loader, and deletion events remove stale records.',
+      value: 'Estimated 10 hours and $100 in labor saved monthly for recurring knowledge-base maintenance.'
+    }
   };
+
   const modal = $('.project-modal');
   const shell = $('.modal-shell', modal);
   const modalMedia = $('.modal-media', modal);
@@ -538,14 +662,12 @@
     const c = cases[card.dataset.project];
     if (!c) return false;
     currentCard = card;
-    const tags = $$('.project-tags span', card).map(s => s.textContent);
-    const logoTags = $$('.project-tags img', card).map(i => i.alt);
-    const allTags = [...tags, ...logoTags];
-    $('#modal-tags').innerHTML = allTags.map(t => `<span>${t}</span>`).join('');
-    // reset media
+    const tagNodes = $$('.project-tags span', card);
+    $('#modal-tags').innerHTML = tagNodes.map(s => `<span>${s.innerHTML}</span>`).join('');
     $$('.flow-fallback', modalMedia).forEach(n => n.remove());
     const mi = $('#modal-image');
     mi.style.display = '';
+    mi.style.setProperty('--modal-img-bg', c.bg || 'var(--bg2)');
     delete mi.dataset.failed;
     mi.onerror = () => applyFallback(mi);
     mi.alt = c.alt;
@@ -569,7 +691,11 @@
   function closeCase() {
     if (!modal.open) return;
     modal.classList.remove('is-open');
-    const done = () => { modal.close(); body.classList.remove('is-locked'); lastFocus && lastFocus.focus && lastFocus.focus({ preventScroll: true }); };
+    const done = () => {
+      modal.close();
+      body.classList.remove('is-locked');
+      lastFocus && lastFocus.focus && lastFocus.focus({ preventScroll: true });
+    };
     reduceMotion ? done() : setTimeout(done, 380);
   }
   function stepCase(dir) {
@@ -593,8 +719,8 @@
     if (e.key === 'ArrowLeft') stepCase(-1);
   });
 
-  /* ---------------------------------------------------------\
-     12. Theme toggle with circular view-transition reveal
+  /* ---------------------------------------------------------
+     13. Theme toggle with circular view-transition reveal
   --------------------------------------------------------- */
   const themeBtn = $('.theme-toggle');
   const metaTheme = $('meta[name="theme-color"]');
@@ -604,7 +730,7 @@
     metaTheme && metaTheme.setAttribute('content', next === 'light' ? '#f4f6f9' : '#050b16');
     window.__refreshCanvasColors && window.__refreshCanvasColors();
   };
-  themeBtn.addEventListener('click', e => {
+  themeBtn.addEventListener('click', () => {
     const next = root.dataset.theme === 'light' ? 'dark' : 'light';
     if (!document.startViewTransition || reduceMotion) return applyTheme(next);
     const r = themeBtn.getBoundingClientRect();
@@ -620,8 +746,8 @@
   });
   if (metaTheme && root.dataset.theme === 'light') metaTheme.setAttribute('content', '#f4f6f9');
 
-  /* ---------------------------------------------------------\
-     13. Utilities: copy email, year, back to top
+  /* ---------------------------------------------------------
+     14. Utilities: copy email, year, back to top
   --------------------------------------------------------- */
   const toast = $('.toast');
   $('.copy-btn').addEventListener('click', async e => {
@@ -631,7 +757,9 @@
       btn.classList.add('copied'); label.textContent = 'Copied ✓';
       toast.classList.add('show');
       setTimeout(() => { toast.classList.remove('show'); btn.classList.remove('copied'); label.textContent = 'Copy email'; }, 2000);
-    } catch { location.href = 'mailto:' + btn.dataset.copy; }
+    } catch {
+      location.href = 'mailto:' + btn.dataset.copy;
+    }
   });
   $('#year').textContent = new Date().getFullYear();
   $('.back-to-top').addEventListener('click', () => {
