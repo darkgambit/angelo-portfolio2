@@ -21,6 +21,9 @@ Then visit `http://localhost:8000`.
 - Colors and layout: the variables at the top of `styles.css`
 - Case-study modal content: the `cases` object in `script.js`
 - Portrait: `assets/angelo-profile.webp`
+- Featured AI clinic build: the `.flagship` card in `index.html`, its demo conversation in `chatScripts` (`script.js`), and the diagram at `assets/ai-clinic-messenger.webp`
+- Booking slots are shown in Philippine Time (UTC+8), with each visitor's local time underneath
+- Site URL used in share previews (`og:url`, `og:image`, canonical, JSON-LD): update it in `index.html` if the domain changes
 
 ## Downloadable CV
 The website includes `Angelo-De-Ocampo-CV.pdf` at the repository root. Keep this filename unchanged, or update both CV links in `index.html` if replacing it.

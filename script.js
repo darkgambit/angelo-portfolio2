@@ -5,14 +5,13 @@
 (() => {
   'use strict';
 
-  window.__PORTFOLIO_JS_V = '20261110-v6';
+  window.__PORTFOLIO_JS_V = '20261123-v7';
 
   /* =======================================================================
-     OPTIONAL KEY / ALIAS OVERRIDE:
-     - Leave blank ('') to deliver straight to your Gmail inbox automatically
-       (just click 'Activate Form' once in the email sent to your Gmail).
-     - Optional: After activating, you can paste the random FormSubmit alias
-       token OR a free Web3Forms UUID key (https://app.web3forms.com) here.
+     FORM DELIVERY KEY:
+     - A Web3Forms access key (UUID from https://app.web3forms.com) sends
+       bookings through Web3Forms. This key is designed to be public.
+     - Leave blank ('') to fall back to FormSubmit with your Gmail inbox.
      ======================================================================= */
   const ENDPOINT_KEY_OR_ALIAS = 'a6e5bed9-bdfd-4af5-8345-5d16ec1a855b';
 
@@ -399,6 +398,16 @@
   }));
 
   const cases = {
+    clinic: {
+      title: 'AI Clinic Appointment & Messenger Support System',
+      image: 'assets/ai-clinic-messenger.webp',
+      bg: '#0b1020',
+      alt: 'n8n architecture: Messenger webhook and verification, message parsing, a Clinic AI Agent with OpenRouter model, conversation memory and six tools, tool sub-workflows using Google Sheets and Google Calendar, and channel delivery back to Messenger.',
+      summary: 'An n8n AI agent that runs a clinic’s Facebook Messenger inbox: it answers patient questions and books, cancels, reschedules, and looks up appointments end to end.',
+      challenge: 'Clinic staff answer the same questions about hours, services, and open slots all day, and manual booking across chat, calendar, and spreadsheets causes double-bookings and slow replies after hours.',
+      solution: 'A verified Messenger webhook feeds parsed messages to a Clinic AI Agent (OpenRouter model plus conversation memory). The agent picks from six tools (clinic info, availability, book, cancel, my bookings, reschedule), each a sub-workflow that validates slots against Google Calendar free/busy, then writes to Calendar and Sheets before replying on Messenger.',
+      value: 'Patients get instant, 24/7 answers and confirmed bookings; staff stop re-keying appointments, and every booking change is logged for a clean audit trail.'
+    },
     xero: {
       title: 'Asana → Xero Bank Transaction Reporting',
       image: 'assets/asana-xero.webp',
@@ -407,7 +416,7 @@
       summary: 'A Make scenario that turns completed Asana work into a structured bank-transaction report and returns the final output to the task.',
       challenge: 'Manual retrieval, formatting, attachment preparation, and staging-sheet cleanup create reporting delays and reconciliation risk.',
       solution: 'Watches completed tasks, calls Xero, routes records, iterates and aggregates data, adds rows to Sheets, attaches the final report to Asana, then clears staging cells.',
-      value: 'Estimated 12 hours and $120 in labor saved monthly under moderate volume.'
+      value: 'Estimated 12 hours of manual work saved monthly under moderate volume.'
     },
     content: {
       title: 'AI Content Repurposing Engine',
@@ -417,7 +426,7 @@
       summary: 'A Zapier workflow that converts source files into multiple AI-assisted posts and routes outputs to Facebook, LinkedIn, and Instagram.',
       challenge: 'Rewriting one asset into multiple platform formats is repetitive and creates inconsistent publishing cadence.',
       solution: 'A Drive trigger passes qualifying files to AI generation steps, loops through platform-tailored outputs, and routes publishing actions via conditional paths.',
-      value: 'Estimated 18 hours and $180 in labor saved monthly, excluding human review and platform fees.'
+      value: 'Estimated 18 hours saved monthly, with human review kept in the loop.'
     },
     leads: {
       title: 'Asana 5-Stage Lead Pipeline Automation',
@@ -427,7 +436,7 @@
       summary: 'A five-stage Asana lead system covering Ready to Start, No Response, Quoted, Approved, and Paid & Closed.',
       challenge: 'Manual follow-ups, folder setup, quote reminders, and onboarding handoffs lead to dropped deals and uneven client experience.',
       solution: 'Stage transitions trigger Drive folder creation, timed Gmail follow-ups, conditional filters, AI-assisted replies, and automated welcome workflows.',
-      value: 'Estimated 15 hours and $150 in labor saved monthly with consistent pipeline hygiene.'
+      value: 'Estimated 15 hours saved monthly, with consistent pipeline hygiene.'
     },
     video: {
       title: 'AI Video Creation & Publishing',
@@ -437,7 +446,7 @@
       summary: 'An end-to-end n8n workflow that generates AI videos and publishes them automatically to YouTube and Facebook.',
       challenge: 'Prompting, token signing, render polling, media conversion, and dual-platform uploads require repetitive manual coordination.',
       solution: 'Schedules structured Gemini prompts, signs a JWT, calls an external video API, monitors status and errors, converts Base64 media, and publishes to both channels.',
-      value: 'Estimated 24 hours and $240 in labor saved monthly; external API rendering fees excluded.'
+      value: 'Estimated 24 hours of manual coordination saved monthly.'
     },
     docs: {
       title: 'Audit-Ready Attachment Renaming & Filing',
@@ -447,7 +456,7 @@
       summary: 'A document-control scenario that standardizes incoming email attachments and logs every processed file for audit traceability.',
       challenge: 'Manual download, reading, naming, filing, and spreadsheet logging are slow and prone to naming drift.',
       solution: 'Watches Gmail attachments, analyzes contents with AI, generates standardized filenames, archives to Google Drive, logs metadata in Sheets, and sends confirmation.',
-      value: 'Estimated 8 hours and $80 in labor saved monthly with audit-grade naming consistency.'
+      value: 'Estimated 8 hours saved monthly, with audit-grade naming consistency.'
     },
     rag: {
       title: 'Self-Cleaning RAG Knowledge Pipeline',
@@ -457,7 +466,7 @@
       summary: 'A retrieval-augmented-generation data pipeline that keeps a Supabase vector store continuously synchronized with Google Drive.',
       challenge: 'AI knowledge bases quickly go stale without repeatable ingestion, chunking, embedding, and deleted-file cleanup.',
       solution: 'Drive file events trigger ingestion, Gemini generates embeddings into Supabase Vector Store, and file deletion events purge obsolete vector records.',
-      value: 'Estimated 10 hours and $100 in labor saved monthly on recurring knowledge-base upkeep.'
+      value: 'Estimated 10 hours saved monthly on recurring knowledge-base upkeep.'
     }
   };
 
@@ -480,6 +489,8 @@
     mi.onerror = () => applyFallback(mi);
     mi.alt = c.alt;
     mi.src = c.image;
+    const full = $('#modal-full');
+    if (full) full.href = c.image;
     $('#modal-title').textContent = c.title;
     $('#modal-summary').textContent = c.summary;
     $('#modal-challenge').textContent = c.challenge;
@@ -544,7 +555,47 @@
     try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local time'; }
     catch { return 'Local time'; }
   })();
-  if (tzLabelEl) tzLabelEl.textContent = visitorTZ;
+  /* Slots are offered in Angelo's time zone (Philippine Time, UTC+8).
+     Each slot also shows the visitor's local equivalent when it differs. */
+  const HOST_TZ_LABEL = 'PHT';
+  const HOST_OFFSET_H = 8;
+  const sameAsHost = (() => {
+    try {
+      const probe = new Date(Date.UTC(2026, 0, 15, 4, 0));
+      return probe.toLocaleString('en-US', { timeZone: 'Asia/Manila' }) === probe.toLocaleString('en-US');
+    } catch { return false; }
+  })();
+  if (tzLabelEl) tzLabelEl.textContent = sameAsHost ? 'Philippine Time (UTC+8)' : 'Philippine Time (UTC+8) · your time below';
+
+  const slotInstant = (date, label) => {
+    const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(label || '');
+    if (!m) return null;
+    let h = +m[1] % 12;
+    if (/PM/i.test(m[3])) h += 12;
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), h - HOST_OFFSET_H, +m[2]));
+  };
+  const localEquivalent = (date, label, long = false) => {
+    const t = slotInstant(date, label);
+    if (!t || sameAsHost) return '';
+    return t.toLocaleString('en-US', long
+      ? { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }
+      : { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  };
+  const scheduleText = () => {
+    const isTimed = !!slotInstant(selectedDate, selectedSlot);
+    const base = `${formatDayLong(selectedDate)} · ${selectedSlot}${isTimed ? ' ' + HOST_TZ_LABEL : ''}`;
+    const local = localEquivalent(selectedDate, selectedSlot, true);
+    return local ? `${base} (your time: ${local}, ${visitorTZ})` : base;
+  };
+  const refreshSlotLabels = () => {
+    slotBtns.forEach(btn => {
+      let sub = $('small', btn);
+      const local = localEquivalent(selectedDate, btn.dataset.slot);
+      if (!local) { sub?.remove(); return; }
+      if (!sub) { sub = document.createElement('small'); btn.appendChild(sub); }
+      sub.textContent = local;
+    });
+  };
 
   const now = new Date();
   const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -571,8 +622,8 @@
   });
 
   function updateSlotSummary() {
-    const text = `${formatDayLong(selectedDate)} · ${selectedSlot}`;
-    if (slotSummaryEl) slotSummaryEl.textContent = text;
+    refreshSlotLabels();
+    if (slotSummaryEl) slotSummaryEl.textContent = scheduleText();
     updateReviewCard();
   }
 
@@ -659,7 +710,7 @@
     const revSched = $('#rev-schedule');
     const revFocus = $('#rev-focus');
     const revStack = $('#rev-stack');
-    if (revSched) revSched.textContent = `${formatDayLong(selectedDate)} · ${selectedSlot} (${visitorTZ})`;
+    if (revSched) revSched.textContent = scheduleText();
     if (revFocus) {
       const frictions = getMultiVals('frictionAreas');
       revFocus.textContent = `${getSingleVal('inquiryType')}${frictions.length ? ' · ' + frictions.join(', ') : ''}`;
@@ -777,7 +828,7 @@
     if (!res.ok || data.success === 'false' || data.success === false) {
       const msg = String(data.message || '');
       if (/needs activation/i.test(msg)) {
-        throw new Error('Activation email sent to your Gmail! Open Gmail (check Updates / Spam too), click "Activate Form", then click Confirm & Send again.');
+        throw new Error('The booking form is being set up. Please try again a little later.');
       }
       throw new Error(msg || 'Unable to reach scheduling service right now.');
     }
@@ -811,12 +862,12 @@
     submitBtn.disabled = true;
     if (submitLabel) submitLabel.textContent = 'Sending schedule & answers…';
 
-    const scheduleStr = `${formatDayLong(selectedDate)} at ${selectedSlot} (${visitorTZ})`;
+    const scheduleStr = scheduleText();
     const inquiryType = getSingleVal('inquiryType');
     const frictionList = getMultiVals('frictionAreas').join(', ') || 'General inquiry';
     const toolsList = getMultiVals('currentTools').join(', ') || 'Open to recommendations';
     const timelinePref = getSingleVal('timeline');
-    const subject = `[Portfolio Discovery] ${inquiryType} — ${name} (${formatDayLong(selectedDate)} · ${selectedSlot})`;
+    const subject = `[Portfolio Discovery] ${inquiryType} — ${name} (${formatDayLong(selectedDate)} · ${selectedSlot} ${HOST_TZ_LABEL})`;
 
     try {
       await sendBookingPayload({
@@ -857,6 +908,131 @@
     $('.step-bar', form).hidden = false;
     goToStep(1);
   });
+
+  /* ---------------------------------------------------------
+     7b. Featured Build: Live Messenger Demo + 3D Tilt
+  --------------------------------------------------------- */
+  const chatEl = $('#flag-chat');
+  const toolChips = $$('.flag-tools [data-tool]');
+  const flagCard = $('.flagship');
+
+  const chatScripts = [
+    [
+      { who: 'user', text: 'Hi! What time are you open on Saturday?' },
+      { tool: 'get_clinic_info', note: 'Google Sheets' },
+      { who: 'bot', text: 'We’re open 9:00 AM – 3:00 PM on Saturdays. Would you like to book a visit?' },
+      { who: 'user', text: 'Yes, a teeth cleaning around 10 please.' },
+      { tool: 'check_availability', note: 'Calendar free/busy' },
+      { who: 'bot', text: '10:30 AM is open this Saturday. Shall I book it for you?' },
+      { who: 'user', text: 'Yes please 🙏' },
+      { tool: 'book_appointment', note: 'Calendar + Sheets', float: true },
+      { who: 'bot', text: 'Booked ✅ Cleaning · Sat 10:30 AM. Message me anytime to reschedule or cancel.' }
+    ],
+    [
+      { who: 'user', text: 'Can I move my Saturday appointment to next week?' },
+      { tool: 'get_my_bookings', note: 'Google Sheets' },
+      { who: 'bot', text: 'I found your cleaning on Sat at 10:30 AM. Which day works next week?' },
+      { who: 'user', text: 'Wednesday afternoon.' },
+      { tool: 'check_availability', note: 'Calendar free/busy' },
+      { who: 'bot', text: 'Wednesday has 2:00 PM or 3:30 PM open. Which one?' },
+      { who: 'user', text: '2 PM 👍' },
+      { tool: 'reschedule_appointment', note: 'Calendar + Sheets', float: true },
+      { who: 'bot', text: 'Done ✅ Moved to Wed 2:00 PM. Your old slot has been released.' }
+    ]
+  ];
+
+  const bubble = (cls, text) => {
+    const el = document.createElement('div');
+    el.className = cls;
+    el.textContent = text;
+    return el;
+  };
+  const addToChat = el => {
+    chatEl.appendChild(el);
+    while (chatEl.children.length > 7) chatEl.firstElementChild.remove();
+  };
+  const lightTool = name => toolChips.forEach(c => c.classList.toggle('is-on', c.dataset.tool === name));
+
+  if (chatEl) {
+    if (reduceMotion) {
+      chatScripts[0].forEach(step => addToChat(step.tool
+        ? bubble('msg tool', `⚙ ${step.tool} · ${step.note}`)
+        : bubble(`msg ${step.who}`, step.text)));
+    } else {
+      const wait = ms => new Promise(r => setTimeout(r, ms));
+      let chatVisible = false;
+      let running = false;
+      const whenVisible = async () => { while (!chatVisible || document.hidden) await wait(400); };
+
+      const runChat = async () => {
+        if (running) return;
+        running = true;
+        for (let round = 0; ; round = (round + 1) % chatScripts.length) {
+          chatEl.innerHTML = '';
+          lightTool(null);
+          for (const step of chatScripts[round]) {
+            await whenVisible();
+            if (step.tool) {
+              lightTool(step.tool);
+              addToChat(bubble('msg tool', `⚙ ${step.tool} · ${step.note}`));
+              if (step.float) {
+                flagCard?.classList.remove('pulse'); void flagCard?.offsetWidth; flagCard?.classList.add('pulse');
+              }
+              await wait(900);
+            } else if (step.who === 'bot') {
+              const typing = bubble('msg bot typing', '');
+              typing.innerHTML = '<i></i><i></i><i></i>';
+              addToChat(typing);
+              await wait(1000);
+              typing.remove();
+              addToChat(bubble('msg bot', step.text));
+              await wait(1500);
+            } else {
+              addToChat(bubble('msg user', step.text));
+              await wait(1100);
+            }
+          }
+          await wait(2600);
+        }
+      };
+      new IntersectionObserver(([e]) => {
+        chatVisible = e.isIntersecting;
+        if (chatVisible) runChat();
+      }, { threshold: .25 }).observe(chatEl);
+    }
+  }
+
+  /* Gentle 3D tilt: featured scene follows the pointer; cards lean slightly */
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!reduceMotion && finePointer) {
+    const stage = $('.flag-stage');
+    const scene = $('.flag-scene');
+    if (stage && scene) {
+      stage.addEventListener('pointermove', e => {
+        const r = stage.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - .5;
+        const py = (e.clientY - r.top) / r.height - .5;
+        scene.style.setProperty('--ry', `${-14 + px * 16}deg`);
+        scene.style.setProperty('--rx', `${6 - py * 10}deg`);
+      });
+      stage.addEventListener('pointerleave', () => {
+        scene.style.removeProperty('--ry');
+        scene.style.removeProperty('--rx');
+      });
+    }
+
+    $$('.project-card:not(.flagship), .more-card').forEach(card => {
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - .5;
+        const py = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = `perspective(900px) translateY(-5px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg)`;
+        card.style.setProperty('--gx', `${((px + .5) * 100).toFixed(1)}%`);
+        card.style.setProperty('--gy', `${((py + .5) * 100).toFixed(1)}%`);
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+  }
 
   /* ---------------------------------------------------------
      8. Theme Toggle (View Transition) & Footer Utilities
