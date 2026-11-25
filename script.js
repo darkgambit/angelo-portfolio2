@@ -565,7 +565,7 @@
       return probe.toLocaleString('en-US', { timeZone: 'Asia/Manila' }) === probe.toLocaleString('en-US');
     } catch { return false; }
   })();
-  if (tzLabelEl) tzLabelEl.textContent = sameAsHost ? 'Philippine Time (UTC+8)' : 'Philippine Time (UTC+8) · your time below';
+  if (tzLabelEl) tzLabelEl.textContent = sameAsHost ? 'Philippine Time (UTC+8)' : 'Philippine Time · your time in grey';
 
   const slotInstant = (date, label) => {
     const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(label || '');
@@ -578,14 +578,16 @@
     const t = slotInstant(date, label);
     if (!t || sameAsHost) return '';
     return t.toLocaleString('en-US', long
-      ? { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }
+      ? { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }
       : { weekday: 'short', hour: 'numeric', minute: '2-digit' });
   };
-  const scheduleText = () => {
+  /* forEmail: full detail for Angelo's inbox; otherwise a short, friendly line */
+  const scheduleText = (forEmail = false) => {
     const isTimed = !!slotInstant(selectedDate, selectedSlot);
     const base = `${formatDayLong(selectedDate)} · ${selectedSlot}${isTimed ? ' ' + HOST_TZ_LABEL : ''}`;
     const local = localEquivalent(selectedDate, selectedSlot, true);
-    return local ? `${base} (your time: ${local}, ${visitorTZ})` : base;
+    if (!local) return base;
+    return forEmail ? `${base} (visitor's time: ${local}, ${visitorTZ})` : `${base} · ${local} your time`;
   };
   const refreshSlotLabels = () => {
     slotBtns.forEach(btn => {
@@ -862,7 +864,7 @@
     submitBtn.disabled = true;
     if (submitLabel) submitLabel.textContent = 'Sending schedule & answers…';
 
-    const scheduleStr = scheduleText();
+    const scheduleStr = scheduleText(true);
     const inquiryType = getSingleVal('inquiryType');
     const frictionList = getMultiVals('frictionAreas').join(', ') || 'General inquiry';
     const toolsList = getMultiVals('currentTools').join(', ') || 'Open to recommendations';

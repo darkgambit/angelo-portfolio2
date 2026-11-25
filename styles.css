@@ -1575,6 +1575,9 @@ html[data-theme="dark"] .avail-pill { color: #4ade80; }
   font: 500 11px var(--font-mono);
   color: var(--faint);
 }
+.slot-head { gap: 10px; flex-wrap: wrap; }
+.slot-head > span { white-space: nowrap; }
+.slot-head small { white-space: nowrap; }
 .slot-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
