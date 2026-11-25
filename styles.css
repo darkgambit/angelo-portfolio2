@@ -2504,3 +2504,127 @@ body::after {
   .flag-float,
   .project-card.flagship { animation: none !important; }
 }
+
+/* =========================================================
+   v8 — Selective glass: real frosted glass only on floating
+   elements, with colour behind them; content stays solid.
+   ========================================================= */
+:root {
+  --glass-bg: rgba(255, 255, 255, .055);
+  --glass-border: rgba(255, 255, 255, .13);
+  --glass-hi: inset 0 1px 0 rgba(255, 255, 255, .14), inset 0 -1px 0 rgba(255, 255, 255, .03);
+  --glass-blur: blur(22px) saturate(1.7);
+}
+html[data-theme="light"] {
+  --glass-bg: rgba(255, 255, 255, .52);
+  --glass-border: rgba(255, 255, 255, .85);
+  --glass-hi: inset 0 1px 0 rgba(255, 255, 255, .95);
+}
+
+/* Headings: solid, readable; one highlighted phrase */
+.section-head h2,
+.project-head h2 {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--text);
+}
+h2 .hl {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Reading surfaces go back to solid */
+.project-card:not(.flagship),
+.more-card,
+.testimonial-card,
+.stack-card,
+.roadmap-shell,
+.booking-studio,
+.impact-banner {
+  background: var(--card);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Colour light sources so the glass has something to refract */
+.hero-showcase::before {
+  inset: -60px -40px;
+  border-radius: 50%;
+  background:
+    radial-gradient(38% 40% at 22% 28%, rgba(var(--accent-rgb), .55), transparent 70%),
+    radial-gradient(36% 38% at 82% 62%, rgba(var(--accent2-rgb), .55), transparent 70%),
+    radial-gradient(30% 30% at 40% 88%, rgba(167, 139, 250, .45), transparent 70%);
+  filter: blur(30px);
+  opacity: .9;
+}
+.hero-copy { position: relative; }
+.hero-copy::after {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 30%;
+  bottom: -20px;
+  height: 150px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 70% at 20% 50%, rgba(var(--accent-rgb), .35), transparent 70%),
+    radial-gradient(40% 70% at 75% 50%, rgba(var(--accent2-rgb), .35), transparent 70%);
+  filter: blur(30px);
+}
+html[data-theme="light"] .hero-showcase::before { opacity: .8; }
+html[data-theme="light"] .hero-copy::after { opacity: .75; }
+
+/* Glass recipe */
+.hero-profile-card,
+.hero-stats-card,
+.site-header.scrolled .nav,
+.flag-float,
+.project-card.flagship .flag-stats,
+.modal-full {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-hi), 0 24px 60px -24px rgba(0, 0, 0, .55);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+html[data-theme="light"] .hero-profile-card,
+html[data-theme="light"] .hero-stats-card,
+html[data-theme="light"] .site-header.scrolled .nav,
+html[data-theme="light"] .flag-float,
+html[data-theme="light"] .project-card.flagship .flag-stats {
+  box-shadow: var(--glass-hi), 0 24px 50px -28px rgba(30, 60, 110, .35);
+}
+.flag-stats li { border-color: var(--glass-border); }
+
+/* Featured card: frosted phone over a glow, chat bubbles stay solid */
+.flag-stage::before {
+  content: "";
+  position: absolute;
+  inset: 8% 10%;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 45% at 30% 60%, rgba(var(--accent-rgb), .45), transparent 70%),
+    radial-gradient(40% 45% at 75% 35%, rgba(167, 139, 250, .4), transparent 70%);
+  filter: blur(40px);
+}
+.flag-phone {
+  background: rgba(12, 20, 36, .5);
+  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 50px 90px -30px rgba(0, 0, 0, .8);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+}
+
+/* Case-study modal: blurred page behind */
+.project-modal::backdrop {
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+
+@media (max-width: 620px) {
+  .hero-showcase::before { inset: -30px -10px; }
+}
