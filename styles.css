@@ -2737,3 +2737,8 @@ html:not([data-theme="light"]) .cc-chip { color: #6fb3ff; }
   .cc.nudge .cc-launch-ico { animation: none; }
 }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Plain background: no gridlines, no page-wide glow */
+.hero-backdrop { background-image: none; }
+body::after { content: none; }
+body::before { background: none; animation: none; }
