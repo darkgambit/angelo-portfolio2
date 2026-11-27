@@ -2631,3 +2631,109 @@ html[data-theme="light"] .project-card.flagship .flag-stats {
 @media (max-width: 620px) {
   .hero-showcase::before { inset: -30px -10px; }
 }
+
+/* =========================================================
+   Live clinic demo chat (Messenger-style)
+   ========================================================= */
+.flag-actions { display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.btn-try { padding: 9px 16px; font-size: 13.5px; }
+.btn-try[hidden] { display: none; }
+
+.cc { position: fixed; right: 22px; bottom: 22px; z-index: 90; font-family: var(--font-body, inherit); }
+.cc-launch {
+  display: flex; align-items: center; gap: 11px;
+  padding: 8px 18px 8px 8px; border-radius: 100px; cursor: pointer;
+  color: var(--text);
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-hi), 0 18px 44px -16px rgba(0, 0, 0, .55);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  transition: transform .3s var(--ease), box-shadow .3s;
+}
+.cc-launch:hover { transform: translateY(-2px); box-shadow: var(--glass-hi), 0 22px 50px -16px rgba(var(--accent-rgb), .45); }
+.cc-launch-ico, .cc-avatar {
+  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
+  background: linear-gradient(135deg, #00b2ff, #006aff 55%, #a033ff);
+  box-shadow: 0 6px 18px -6px rgba(0, 106, 255, .7);
+}
+.cc-launch-ico svg, .cc-avatar svg { width: 22px; height: 22px; }
+.cc-launch-ico svg use, .cc-avatar svg use { fill: #fff; }
+.cc-launch-ico svg path, .cc-avatar svg path { fill: #fff; }
+.cc-launch-text { display: flex; flex-direction: column; text-align: left; line-height: 1.25; }
+.cc-launch-text b { font-size: 13.5px; }
+.cc-launch-text small { font-size: 11px; color: var(--muted); }
+.cc.nudge:not(.is-open) .cc-launch-ico { animation: cc-ping 2.4s ease-out 3; }
+@keyframes cc-ping { 0% { box-shadow: 0 0 0 0 rgba(0, 132, 255, .55); } 70%, 100% { box-shadow: 0 0 0 16px rgba(0, 132, 255, 0); } }
+.cc.is-open .cc-launch { display: none; }
+
+.cc-panel {
+  width: min(380px, calc(100vw - 24px)); height: min(600px, calc(100vh - 44px));
+  display: flex; flex-direction: column; overflow: hidden; border-radius: 22px;
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-hi), 0 40px 90px -30px rgba(0, 0, 0, .7);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  transform-origin: bottom right; animation: cc-in .35s var(--ease);
+}
+.cc-panel[hidden] { display: none; }
+@keyframes cc-in { from { opacity: 0; transform: translateY(14px) scale(.96); } }
+.cc-head { display: flex; align-items: center; gap: 11px; padding: 14px 14px 12px; border-bottom: 1px solid var(--line); }
+.cc-avatar { width: 36px; height: 36px; }
+.cc-avatar svg { width: 19px; height: 19px; }
+.cc-title { flex: 1; line-height: 1.25; }
+.cc-title strong { display: block; font-size: 14.5px; }
+.cc-title small { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--muted); }
+.cc-title small i { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+.cc-close {
+  width: 32px; height: 32px; border-radius: 50%; border: 0; cursor: pointer;
+  font-size: 22px; line-height: 1; color: var(--muted); background: var(--bg2);
+}
+.cc-close:hover { color: var(--text); }
+.cc-note {
+  margin: 10px 12px 0; padding: 8px 11px; border-radius: 10px; font-size: 11.5px; line-height: 1.45;
+  color: var(--muted); background: rgba(var(--accent-rgb), .07); border: 1px solid rgba(var(--accent-rgb), .2);
+}
+.cc-log { flex: 1; overflow-y: auto; padding: 14px 12px 8px; display: flex; flex-direction: column; gap: 8px; overscroll-behavior: contain; }
+.cc-msg {
+  max-width: 82%; padding: 9px 13px; border-radius: 18px; font-size: 13.5px; line-height: 1.45;
+  white-space: pre-wrap; word-wrap: break-word; animation: msg-in .35s var(--ease) both;
+}
+.cc-msg.user { align-self: flex-end; color: #fff; background: #0a7cff; border-bottom-right-radius: 6px; }
+.cc-msg.bot { align-self: flex-start; color: var(--text); background: var(--bg2); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+.cc-msg.sys { align-self: center; max-width: 92%; text-align: center; font-size: 12px; color: var(--muted); background: transparent; padding: 4px 8px; }
+.cc-msg.typing { display: inline-flex; gap: 4px; padding: 12px 14px; }
+.cc-msg.typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); animation: typing 1s infinite; }
+.cc-msg.typing i:nth-child(2) { animation-delay: .15s; }
+.cc-msg.typing i:nth-child(3) { animation-delay: .3s; }
+.cc-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 8px; }
+.cc-chips:empty { display: none; }
+.cc-chip {
+  padding: 7px 11px; border-radius: 100px; cursor: pointer; font-size: 12px; font-weight: 600;
+  color: #0a7cff; background: rgba(10, 124, 255, .08); border: 1px solid rgba(10, 124, 255, .3);
+}
+html:not([data-theme="light"]) .cc-chip { color: #6fb3ff; }
+.cc-chip:hover { background: rgba(10, 124, 255, .16); }
+.cc-form { display: flex; gap: 8px; padding: 10px 12px 12px; border-top: 1px solid var(--line); }
+.cc-input {
+  flex: 1; min-width: 0; padding: 11px 15px; border-radius: 100px; font: inherit; font-size: 14px;
+  color: var(--text); background: var(--bg2); border: 1px solid var(--line);
+}
+.cc-input:focus { outline: none; border-color: rgba(10, 124, 255, .6); box-shadow: 0 0 0 3px rgba(10, 124, 255, .15); }
+.cc-send {
+  width: 42px; height: 42px; flex-shrink: 0; border: 0; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; color: #fff; background: #0a7cff;
+}
+.cc-send svg { width: 18px; height: 18px; }
+.cc-send:disabled { opacity: .5; cursor: wait; }
+
+@media (max-width: 620px) {
+  .cc { right: 12px; bottom: 12px; }
+  .cc-launch { padding: 7px; }
+  .cc-launch-text { display: none; }
+  .cc.is-open { left: 12px; top: 12px; }
+  .cc-panel { width: 100%; height: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cc-panel, .cc-msg { animation: none; }
+  .cc.nudge .cc-launch-ico { animation: none; }
+}
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
