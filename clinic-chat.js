@@ -13,7 +13,7 @@
      Request:  POST JSON { sessionId, message, source: 'portfolio' }
      Response: JSON { reply: "..." }  (also accepts { output } or [{ output }])
      ======================================================================= */
-  const CHAT_ENDPOINT = '';
+  const CHAT_ENDPOINT = 'https://n8n-d7yx.srv1842740.hstgr.cloud/webhook/clinic-demo';
 
   const MAX_CHARS = 300;          // per message
   const MAX_MESSAGES = 25;        // per browser session (keeps AI costs bounded)
